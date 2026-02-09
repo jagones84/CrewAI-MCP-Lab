@@ -1,0 +1,120 @@
+# =============================================================================
+# INFRASTRUCTURE & RESOURCE CONFIGURATION
+# =============================================================================
+infrastructure:
+  # SELECT ACTIVE PROVIDERS
+  llm_selected: "llama_cp_local" # Options: "vllm", "llama_cp", "openrouter", "ollama", "llama_cp_tunnel", "llama_cp_local"
+  image_selected: "remote_dgspark" # Options: "remote_dgspark" (dgspark), "local_standard" (PC)
+
+  llm_profiles:
+    openrouter:
+      model: "openrouter/openai/gpt-4o-mini"
+      base_url: "https://openrouter.ai/api/v1"
+      temperature: 0.7
+    llama_cp:
+      model: "local-model-name"
+      base_url: "http://localhost:1234/v1"
+      temperature: 0.7
+      api_key: "lm-studio"
+    vllm:
+      model: "Qwen/Qwen2.5-1.5B-Instruct"
+      base_url: "http://localhost:8000/v1"
+      temperature: 0.7
+      api_key: "EMPTY"
+    ollama:
+      model: "llama3"
+      base_url: "http://localhost:11434/v1"
+      temperature: 0.7
+      api_key: "ollama"
+    llama_cp_tunnel:
+      model: "default-model"
+      base_url: "http://localhost:11003/v1" # Tunnel to remote GPU (e.g., via SSH)
+      temperature: 0.7
+      api_key: "EMPTY"
+    llama_cp_local:
+      # The name of the GGUF model file in your models directory
+      model: "Cydonia-24B-v4j-Q4_K_M.gguf" 
+      
+      # The local URL where the server will run
+      base_url: "http://localhost:8080/v1"  
+      
+      temperature: 0.7
+      api_key: "EMPTY"
+      
+      # [AUTO-MANAGEMENT]
+      # Path to the llama-server.exe executable
+      # Example: "C:\\Tools\\llama.cpp\\build\\bin\\Release\\llama-server.exe"
+      executable_path: "F:\\PROGRAMS\\llama_cp\\llama-server.exe"
+      
+      # Directory containing your GGUF models
+      # Example: "C:\\Tools\\llama.cpp\\models"
+      models_dir: "F:\\PROGRAMS\\llama_cp\\MODELS"
+      
+      # [OPTIONAL PARAMETERS] - Uncomment to override defaults
+      # n_gpu_layers: 35    # Number of layers to offload to GPU (Default: 35)
+      # ctx_size: 32768     # Context size in tokens (Default: 32768)
+      # parallel: 4         # Number of parallel requests (Default: 4)
+      # threads: 8          # Number of CPU threads (Default: auto)
+
+  image_profiles:
+    local_standard:
+      comfy_server: "comfyui"
+    remote_dgspark:
+      comfy_server: "comfyui-dgspark"
+
+# =============================================================================
+# PROJECT SETTINGS
+# =============================================================================
+project:
+  root: "outputs"
+  paths:
+    rag_db: "rag_db"
+    characters: "Characters"
+    logs: "logs"
+
+# =============================================================================
+# BOOK CONFIGURATION
+# =============================================================================
+book:
+  title: "The Last Alchemist of Mars"
+  genre: "Science Fantasy"
+  theme: "Ancient Magic vs Terraforming Tech, Lost Legacy, Survival"
+  action: "generate_book" # Options: generate_book, regenerate_pdf
+  mode: "create" # Options: create, modify
+  regen_images: false
+  regen_chapters: []
+
+story:
+  structure:
+    chapters: 1         # Short run to verify flow
+    scenes_per_chapter: 1
+    images_per_chapter: 1
+  content:
+    tone: "Mysterious, Epic, Gritty"
+    complexity: "High"
+    language: "English"
+    word_count: 1200
+
+# =============================================================================
+# CHARACTER CONFIGURATION
+# =============================================================================
+characters:
+  generation:
+    auto_create: true
+    count: 3  # 1 Predefined + 2 Auto-generated
+  portraits:
+    enabled: true
+    workflow: "image_perfectDeliberate_text_to_image_API.json"
+  predefined:
+    main: 
+      - "Elara Vance" # Predefined protagonist to test mixing
+    supporting: []
+
+# =============================================================================
+# STYLE CONFIGURATION
+# =============================================================================
+styles:
+  pdf:
+    font: "Times-Roman"
+    font_size: 12
+    margins: [72, 72, 72, 72] # 1 inch margins

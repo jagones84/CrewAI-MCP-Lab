@@ -1,0 +1,15 @@
+__pycache__/
+*.pyc
+.env
+.venv
+venv
+env
+logs/
+outputs/
+rag_db/
+*.log
+*.sqlite3
+assets/
+config/config.yaml
+config/config-backup.yaml
+!config/config.template.yaml

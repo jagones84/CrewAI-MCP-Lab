@@ -1,0 +1,142 @@
+{
+    "mcpServers": {
+        "filesystem": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-filesystem",
+                "./allowed/path"
+            ],
+            "disabled": false
+        },
+        "python-local": {
+            "command": "python",
+            "args": [
+                "-m",
+                "mcp_server_python_local"
+            ],
+            "disabled": false
+        },
+        "fetch": {
+            "command": "uvx",
+            "args": [
+                "mcp-server-fetch"
+            ],
+            "disabled": false
+        },
+        "DuckDuckGo Search Server": {
+            "command": "uvx",
+            "args": [
+                "duckduckgo-mcp-server"
+            ],
+            "disabled": false
+        },
+        "memory": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-memory"
+            ],
+            "env": {
+                "MEMORY_FILE_PATH": "memory.json"
+            },
+            "disabled": false
+        },
+        "sequential-thinking": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-sequential-thinking"
+            ],
+            "disabled": false
+        },
+        "brave-search": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-brave-search"
+            ],
+            "env": {
+                "BRAVE_API_KEY": "YOUR_API_KEY_HERE"
+            },
+            "disabled": true
+        },
+        "puppeteer": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-puppeteer"
+            ],
+            "disabled": true
+        },
+        "comfyui": {
+            "command": "mcp_servers/comfyui/.venv/Scripts/python.exe",
+            "args": [
+                "mcp_servers/comfyui/server.py"
+            ],
+            "env": {
+                "COMFYUI_SERVER_ADDRESS": "127.0.0.1:8188"
+            },
+            "disabled": true
+        },
+        "comfyui-dgspark": {
+            "command": "mcp_servers/comfyui-dgspark/.venv/Scripts/python.exe",
+            "args": [
+                "mcp_servers/comfyui-dgspark/comfy_dgspark_server.py"
+            ],
+            "env": {
+                "COMFYUI_SERVER_ADDRESS": "127.0.0.1:11002",
+                "SSH_TUNNEL_REMOTE": "user@host",
+                "SSH_TUNNEL_DEST": "localhost:8188"
+            },
+            "disabled": true
+        },
+        "yt-whisper": {
+            "command": "mcp_servers/yt-whisper/.venv/Scripts/python.exe",
+            "args": [
+                "mcp_servers/yt-whisper/server.py"
+            ],
+            "disabled": true
+        },
+        "simple-datetime-server": {
+            "disabled": true,
+            "timeout": 600,
+            "command": "node",
+            "args": [
+                "mcp_servers/simple-datetime-server/index.js"
+            ],
+            "env": {},
+            "transportType": "stdio",
+            "alwaysAllow": [
+                "get_current_datetime"
+            ]
+        },
+
+        "telegram": {
+            "command": "python",
+            "args": [
+                "path/to/telegram-mcp/main.py"
+            ],
+            "env": {
+                "TELEGRAM_API_ID": "YOUR_API_ID",
+                "TELEGRAM_API_HASH": "YOUR_API_HASH",
+                "TELEGRAM_BOT_TOKEN": "YOUR_BOT_TOKEN"
+            },
+            "disabled": true
+        },
+        "docker": {
+            "command": "uvx",
+            "args": [
+                "docker-mcp"
+            ],
+            "disabled": true
+        },
+        "git": {
+            "command": "uvx",
+            "args": [
+                "git-mcp"
+            ],
+            "disabled": true
+        }
+    }
+}

@@ -1,0 +1,19 @@
+{
+  "name": "datetime-server",
+  "version": "1.0.0",
+  "description": "Simple MCP server to get current date and time",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [
+    "mcp",
+    "datetime"
+  ],
+  "author": "Cline",
+  "license": "ISC",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.8.0"
+  }
+}

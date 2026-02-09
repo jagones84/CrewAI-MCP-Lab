@@ -1,0 +1,22 @@
+[project]
+name = "illustrated-book-writer"
+version = "0.1.0"
+description = "AI Illustrated Book Writer using CrewAI and Remote Image Generation"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "crewai",
+    "paramiko",
+    "sshtunnel",
+    "pydantic-settings",
+    "python-dotenv",
+    "PyYAML",
+    "fpdf",
+]
+
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]

@@ -1,0 +1,17 @@
+research_task:
+  description: >
+    Conduct a thorough research about {topic}.
+    Use the search tool to find the latest news and developments.
+    Focus on the most recent advancements and key players.
+  expected_output: >
+    A comprehensive list of key findings, dates, and summaries about {topic}.
+  agent: researcher
+
+writing_task:
+  description: >
+    Write a short blog post about {topic} using the research findings.
+    Ensure the tone is professional yet accessible.
+  expected_output: >
+    A markdown formatted blog post with a title, introduction, key points, and conclusion.
+  agent: writer
+  context: [research_task]

@@ -1,0 +1,60 @@
+# Environments
+venv/
+.venv/
+.env
+.agent/
+.trae/
+node_modules/
+
+# Cache
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Configuration
+crewai_mcp.json
+crewai_mcp-backup.json
+
+# src
+src/mcp_loader-backup.py
+
+# Outputs & Artifacts
+**/outputs/
+**/output/
+outputs/
+output/
+*.log
+debug_log.txt
+*.pdf
+*.png
+*.jpg
+*.jpeg
+*.mp4
+*.wav
+*.webm
+*.m4a
+*.mp3
+
+# IDEs
+.vscode/
+.idea/
+
+# Temporary
+trash/
+tmp/
+*.tmp
+*.bak
+BACKUPS/
+tests/diagnostic_*.py
+
+# Exclude older examples (Only 05 and 06 are active)
+examples/01*
+examples/02*
+examples/03*
+examples/04*
+examples/README.md
+
+# Ensure empty output folders are tracked
+!outputs/.gitkeep
+!examples/05_illustrated_book_writer/outputs/.gitkeep
+!TEST/mcp_workflow_test/outputs/.gitkeep

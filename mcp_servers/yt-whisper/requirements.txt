@@ -1,0 +1,6 @@
+mcp
+openai-whisper
+yt-dlp
+faster-whisper
+# For CUDA support, users must run:
+# pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
