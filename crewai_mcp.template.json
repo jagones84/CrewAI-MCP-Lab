@@ -24,6 +24,14 @@
             ],
             "disabled": false
         },
+        "Multi-Fetch": {
+        "command": "npx -y @lmcc-dev/mult-fetch-mcp-server",
+        "args": [],
+        "env": {
+            "MCP_LANG": "Auto-detected based on system"
+        },
+        "fromGalleryId": "lmcc-dev.mult-fetch-mcp-server"
+        },
         "DuckDuckGo Search Server": {
             "command": "uvx",
             "args": [
@@ -112,15 +120,24 @@
             ]
         },
 
-        "telegram": {
-            "command": "python",
+        "HuggingFace Hub": {
+            "command": "npx",
             "args": [
-                "path/to/telegram-mcp/main.py"
+                "-y",
+                "mcp-remote",
+                "https://huggingface.co/mcp",
+                "--header",
+                "Authorization: Bearer YOUR_HF_TOKEN_HERE"
+            ],
+            "disabled": true
+        },
+        "justwatch": {
+            "command": "uvx",
+            "args": [
+                "mcp-justwatch"
             ],
             "env": {
-                "TELEGRAM_API_ID": "YOUR_API_ID",
-                "TELEGRAM_API_HASH": "YOUR_API_HASH",
-                "TELEGRAM_BOT_TOKEN": "YOUR_BOT_TOKEN"
+                "JUSTWATCH_COUNTRY": "IT"
             },
             "disabled": true
         },

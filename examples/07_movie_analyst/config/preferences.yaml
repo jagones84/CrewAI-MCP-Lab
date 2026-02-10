@@ -1,0 +1,43 @@
+movie_criteria:
+  count: 10
+  min_score: 7.5
+  genres: ["Sci-Fi", "Action", "Thriller", "Drama"]
+  year_range: "2023-2024"
+  content_type: "movie"
+  mood: "Mind-bending and Visually Stunning"
+  max_runtime_minutes: 180
+  language: "English"
+
+user_context:
+  country: "US"
+  only_free_included: true # If true, only show movies included in subscriptions (flatrate).
+  subscribed_providers: 
+    - "Netflix"
+    - "Amazon Prime Video"
+    - "Disney Plus"
+    - "Now TV"
+  
+report_preferences:
+  format: "table" # Options: table, list
+  show_critic_vs_audience: true # Try to find both scores
+
+llm_config:
+  # Select which profile to use: "ollama", "openai", "openrouter", etc.
+  selected: "ollama" 
+  
+  profiles:
+    ollama:
+      provider: "ollama"
+      model: "mistral" # Make sure you have this pulled: `ollama pull mistral`
+      base_url: "http://localhost:11434"
+    
+    openai:
+      provider: "openai"
+      model: "gpt-4o"
+      # api_key is read from .env (OPENAI_API_KEY)
+
+    openrouter:
+      provider: "openai" # OpenRouter uses OpenAI-compatible API
+      model: "anthropic/claude-3.5-sonnet"
+      base_url: "https://openrouter.ai/api/v1"
+      # api_key is read from .env (OPENAI_API_KEY or OPENROUTER_API_KEY)

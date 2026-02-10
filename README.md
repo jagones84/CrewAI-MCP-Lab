@@ -18,6 +18,12 @@ A CrewAI workflow that researches, transcribes, and summarizes YouTube videos us
 - **LLM Support**: Flexible LLM integration via **OpenRouter** or local providers.
 - **LLM**: For summarizing the transcripts.
 
+### 🎬 [Movie Analyst](examples/07_movie_analyst/README.md)
+An agent crew that analyzes movies for streaming availability and critical reception:
+- **JustWatch MCP**: Locates streaming services in Italy.
+- **Brave Search MCP**: Aggregates reviews and ratings.
+- **Reporting**: Generates a markdown report with findings.
+
 ## 🛠️ Comprehensive Setup Guide
 
 This project uses a **Dual-Layer Architecture**:
