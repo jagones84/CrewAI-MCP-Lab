@@ -1,0 +1,7 @@
+crewai
+paramiko
+sshtunnel
+pydantic-settings
+python-dotenv
+PyYAML
+fpdf2

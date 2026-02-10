@@ -1,39 +1,36 @@
 # =============================================================================
 # INFRASTRUCTURE & RESOURCE CONFIGURATION
 # =============================================================================
+# [IMPORTANT] THIS FILE MUST CONTAIN ALL POSSIBLE CONFIGURATIONS
+# DO NOT REMOVE UNUSED PROFILES. USERS MUST BE ABLE TO SWITCH BY CHANGING 'llm_selected'
+# =============================================================================
 infrastructure:
   # SELECT ACTIVE PROVIDERS
-  llm_selected: "llama_cp_local" # Options: "vllm", "llama_cp", "openrouter", "ollama", "llama_cp_tunnel", "llama_cp_local"
-  image_selected: "remote_dgspark" # Options: "remote_dgspark" (dgspark), "local_standard" (PC)
-
+  # Options: "openrouter", "ollama", "llama_cp_local", "vllm", "llama_cp", "llama_cp_tunnel"
+  llm_selected: "ollama" 
+  
+  # Options: "remote_dgspark" (dgspark), "local_standard" (PC)
+  image_selected: "local_standard" 
+  
   llm_profiles:
+    # 1. OpenRouter (Cloud)
     openrouter:
-      model: "openrouter/openai/gpt-4o-mini"
+      model: "openai/gpt-4o-mini" # or "anthropic/claude-3-haiku"
       base_url: "https://openrouter.ai/api/v1"
       temperature: 0.7
-    llama_cp:
-      model: "local-model-name"
-      base_url: "http://localhost:1234/v1"
-      temperature: 0.7
-      api_key: "lm-studio"
-    vllm:
-      model: "Qwen/Qwen2.5-1.5B-Instruct"
-      base_url: "http://localhost:8000/v1"
-      temperature: 0.7
-      api_key: "EMPTY"
+      # api_key: "sk-or-..." # UNCOMMENT AND ADD YOUR KEY HERE
+      
+    # 2. Ollama (Local)
     ollama:
-      model: "llama3"
+      model: "llama3:latest" # Ensure this model is pulled: `ollama pull llama3`
       base_url: "http://localhost:11434/v1"
       temperature: 0.7
       api_key: "ollama"
-    llama_cp_tunnel:
-      model: "default-model"
-      base_url: "http://localhost:11003/v1" # Tunnel to remote GPU (e.g., via SSH)
-      temperature: 0.7
-      api_key: "EMPTY"
+
+    # 3. Llama.cpp Server (Local - Auto-Managed)
     llama_cp_local:
       # The name of the GGUF model file in your models directory
-      model: "Cydonia-24B-v4j-Q4_K_M.gguf" 
+      model: "Your-Model-Name.gguf" 
       
       # The local URL where the server will run
       base_url: "http://localhost:8080/v1"  
@@ -43,18 +40,36 @@ infrastructure:
       
       # [AUTO-MANAGEMENT]
       # Path to the llama-server.exe executable
-      # Example: "C:\\Tools\\llama.cpp\\build\\bin\\Release\\llama-server.exe"
-      executable_path: "F:\\PROGRAMS\\llama_cp\\llama-server.exe"
+      executable_path: "C:\\Path\\To\\llama-server.exe"
       
       # Directory containing your GGUF models
-      # Example: "C:\\Tools\\llama.cpp\\models"
-      models_dir: "F:\\PROGRAMS\\llama_cp\\MODELS"
+      models_dir: "C:\\Path\\To\\MODELS"
       
-      # [OPTIONAL PARAMETERS] - Uncomment to override defaults
-      # n_gpu_layers: 35    # Number of layers to offload to GPU (Default: 35)
-      # ctx_size: 32768     # Context size in tokens (Default: 32768)
-      # parallel: 4         # Number of parallel requests (Default: 4)
-      # threads: 8          # Number of CPU threads (Default: auto)
+      # [OPTIONAL PARAMETERS]
+      n_gpu_layers: 35    # Number of layers to offload to GPU
+      # ctx_size: 32768     # Context size in tokens
+      # parallel: 4         # Number of parallel requests
+
+    # 4. vLLM (Local/Remote)
+    vllm:
+      model: "Qwen/Qwen2.5-1.5B-Instruct"
+      base_url: "http://localhost:8000/v1"
+      temperature: 0.7
+      api_key: "EMPTY"
+
+    # 5. Llama.cpp (External/Manual)
+    llama_cp:
+      model: "local-model-name"
+      base_url: "http://localhost:1234/v1"
+      temperature: 0.7
+      api_key: "lm-studio"
+
+    # 6. Llama.cpp Tunnel (Remote GPU)
+    llama_cp_tunnel:
+      model: "default-model"
+      base_url: "http://localhost:11003/v1" # Tunnel to remote GPU (e.g., via SSH)
+      temperature: 0.7
+      api_key: "EMPTY"
 
   image_profiles:
     local_standard:
@@ -76,9 +91,9 @@ project:
 # BOOK CONFIGURATION
 # =============================================================================
 book:
-  title: "The Last Alchemist of Mars"
-  genre: "Science Fantasy"
-  theme: "Ancient Magic vs Terraforming Tech, Lost Legacy, Survival"
+  title: "My New Book Title"
+  genre: "Fantasy"
+  theme: "Hero's Journey"
   action: "generate_book" # Options: generate_book, regenerate_pdf
   mode: "create" # Options: create, modify
   regen_images: false
@@ -86,14 +101,14 @@ book:
 
 story:
   structure:
-    chapters: 1         # Short run to verify flow
-    scenes_per_chapter: 1
+    chapters: 2         # Short run to verify flow but enough to see progression
+    scenes_per_chapter: 2
     images_per_chapter: 1
   content:
-    tone: "Mysterious, Epic, Gritty"
-    complexity: "High"
+    tone: "Adventurous"
+    complexity: "Medium"
     language: "English"
-    word_count: 1200
+    word_count: 800
 
 # =============================================================================
 # CHARACTER CONFIGURATION
@@ -101,13 +116,13 @@ story:
 characters:
   generation:
     auto_create: true
-    count: 3  # 1 Predefined + 2 Auto-generated
+    count: 2  # 1 Predefined + 2 Auto-generated = 3 total
   portraits:
     enabled: true
     workflow: "image_perfectDeliberate_text_to_image_API.json"
   predefined:
     main: 
-      - "Elara Vance" # Predefined protagonist to test mixing
+      - "Hero Name (The Role)" # Predefined protagonist
     supporting: []
 
 # =============================================================================

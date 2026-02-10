@@ -32,9 +32,9 @@ If you prefer to use high-quality cloud models (like GPT-4, Claude 3, or Llama 3
     *   Update the `openrouter` profile:
         ```yaml
         openrouter:
-          model: "openrouter/openai/gpt-4o-mini" # Or "anthropic/claude-3-opus", etc.
+          model: "openai/gpt-4o-mini" # Or "anthropic/claude-3-opus", etc.
           base_url: "https://openrouter.ai/api/v1"
-          api_key: "sk-or-..." # Your OpenRouter Key
+          # api_key: "sk-or-..." # Set in environment or config
         ```
 
 ### 3. Local Llama.cpp Setup (Optional)
@@ -81,11 +81,11 @@ If you prefer to run the LLM locally using Ollama with full automation:
     *   The application will **automatically** start Ollama (if not running), kill conflicting Llama.cpp servers, and ensure the model is loaded.
 
 ### 5. Configuration
-Edit `config/config.yaml` (copy from `config.template.yaml`) to match your setup.
+Edit `config/config.yaml`. You can copy `config/config.template.yaml` to `config/config.yaml` to get started.
 
 ```yaml
 infrastructure:
-  llm_selected: "llama_cp_tunnel" # Options: "llama_cp", "llama_cp_local", "llama_cp_tunnel", "ollama", "openrouter"
+  llm_selected: "ollama" # Options: "llama_cp_local", "ollama", "openrouter", etc.
   image_selected: "remote_dgspark"
 
   llm_profiles:

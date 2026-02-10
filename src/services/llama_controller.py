@@ -103,26 +103,27 @@ class LlamaController:
         print(f"🚀 Starting Llama server from: {self.executable_path}")
         print(f"📦 Model: {self.model}")
         
-        n_gpu_layers = str(self.config.get("n_gpu_layers", 35))
-        ctx_size = str(self.config.get("ctx_size", 32768))
-        parallel = str(self.config.get("parallel", 4))
-
         cmd = [
             self.executable_path,
             "-m", model_path,
             "--port", str(self.port),
             "--host", self.host,
-            "--n-gpu-layers", n_gpu_layers,
-            "--ctx-size", ctx_size,
-            "--parallel", parallel
+            "--n-gpu-layers", "35", # Default good value for 24GB VRAM, can be configurable
+            "--ctx-size", "8192",  # Reduced context window to prevent memory issues/timeouts
+            "--parallel", "1"       # Reduced parallel requests to simplify debugging
         ]
         
         try:
-            self.process = subprocess.Popen(cmd, creationflags=subprocess.CREATE_NEW_CONSOLE)
+            # Redirect output to a log file for debugging
+            self.log_file = open('llama_server.log', 'w')
+            self.process = subprocess.Popen(
+                cmd, 
+                stdout=self.log_file,
+                stderr=subprocess.STDOUT
+            )
             print("⏳ Waiting for server to initialize...")
             
             # Wait loop
-            import time
             for _ in range(30):
                 time.sleep(2)
                 if self.check_server_status():
@@ -148,4 +149,3 @@ class LlamaController:
             return True
             
         return self.start_server()
-

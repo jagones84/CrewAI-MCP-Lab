@@ -20,19 +20,15 @@ pip install -r requirements.txt
 ```
 
 ### 3. Configure yt-whisper (Important!)
-The transcription server requires its own virtual environment with specific dependencies (especially for GPU support).
+The transcription server requires its own virtual environment. The dependencies for CUDA-enabled transcription are included in the `requirements.txt`.
 
 ```powershell
 cd mcp_servers/yt-whisper
 python -m venv .venv
 .\.venv\Scripts\activate
 
-# Install dependencies
+# Install all dependencies (including CUDA-enabled PyTorch)
 pip install -r requirements.txt
-
-# [MANDATORY for GPU Support]
-# You must explicitly install the CUDA-enabled version of PyTorch:
-pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
 
 deactivate
 ```
