@@ -1,0 +1,8 @@
+crewai
+crewai-tools
+mcp
+yfinance
+pandas
+pyyaml
+python-dotenv
+langchain-core

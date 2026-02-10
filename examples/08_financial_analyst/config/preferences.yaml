@@ -1,0 +1,18 @@
+llm:
+  # Options: ollama, openai, openrouter
+  provider: "ollama"
+  # Model to use
+  model: "llama3" 
+  # Temperature for generation
+  temperature: 0.2
+  # Base URL for Ollama (optional, defaults to http://localhost:11434)
+  base_url: "http://localhost:11434"
+
+stocks:
+  # Default list of stocks to analyze if none provided
+  default_tickers:
+    - "AAPL"
+    - "MSFT"
+    - "GOOGL"
+    - "AMZN"
+    - "TSLA"

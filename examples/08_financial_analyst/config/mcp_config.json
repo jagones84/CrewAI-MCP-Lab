@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "yfinance": {
+      "command": "python",
+      "args": ["../../../mcp_servers/yfinance_mcp/server.py"]
+    }
+  }
+}

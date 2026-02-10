@@ -24,6 +24,12 @@ An agent crew that analyzes movies for streaming availability and critical recep
 - **Brave Search MCP**: Aggregates reviews and ratings.
 - **Reporting**: Generates a markdown report with findings.
 
+### 📈 [Financial Analyst](examples/08_financial_analyst/README.md)
+A multi-agent crew that performs deep financial analysis using real-time market data:
+- **YFinance MCP**: Fetches stock prices, company info, and technical indicators (RSI, SMA).
+- **Multi-Agent Analysis**: Combines data collection, technical analysis, and journalistic reporting.
+- **Automated Reporting**: Generates a professional Markdown investment report in the `output/` folder.
+
 ## 🛠️ Comprehensive Setup Guide
 
 This project uses a **Dual-Layer Architecture**:
@@ -76,6 +82,14 @@ cd ../..
 cd mcp_servers/simple-datetime-server
 npm install
 cd ../..
+
+# 5. YFinance MCP
+cd mcp_servers/yfinance_mcp
+python -m venv .venv
+.\.venv\Scripts\activate
+pip install -r requirements.txt
+deactivate
+cd ../..
 ```
 
 ### 3. Configuration
@@ -115,6 +129,10 @@ This project is optimized for **OpenRouter**, allowing you to use state-of-the-a
 
 # 2. Run the Illustrated Book Writer
 cd examples/05_illustrated_book_writer
+python src/main.py
+
+# 3. Run the Financial Analyst
+cd examples/08_financial_analyst
 python src/main.py
 ```
 
