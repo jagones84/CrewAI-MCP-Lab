@@ -30,6 +30,12 @@ A multi-agent crew that performs deep financial analysis using real-time market 
 - **Multi-Agent Analysis**: Combines data collection, technical analysis, and journalistic reporting.
 - **Automated Reporting**: Generates a professional Markdown investment report in the `output/` folder.
 
+### 📢 [Marketing Strategy](examples/09_marketing_strategy/README.md)
+A multi-modal crew for creating comprehensive marketing campaigns:
+- **DuckDuckGo MCP**: Conducts real-time market and competitor research.
+- **LLM Strategy**: Develops USPs, taglines, and campaign concepts.
+- **ComfyUI MCP**: Generates visual concept art for the campaign.
+
 ## 🛠️ Comprehensive Setup Guide
 
 This project uses a **Dual-Layer Architecture**:

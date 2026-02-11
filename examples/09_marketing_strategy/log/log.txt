@@ -1,0 +1,236 @@
+2026-02-10 18:07:54,889 - MarketingCrew - INFO - Starting Example 09: Marketing Strategy Campaign
+2026-02-10 18:07:54,892 - MarketingCrew - INFO - Loaded preferences from F:\REPOSITORIES\Crewai-mcp-lab\examples\09_marketing_strategy\config\preferences.yaml
+2026-02-10 18:07:54,892 - MarketingCrew - INFO - Loading MCP Tools...
+2026-02-10 18:07:56,365 - MarketingCrew - INFO - Loaded 2 search tools.
+2026-02-10 18:07:57,717 - MarketingCrew - INFO - Loaded 2 image generation tools.
+2026-02-10 18:07:58,146 - MarketingCrew - INFO - Target Product: A smart coffee mug that keeps coffee at the perfect temperature and tracks caffeine intake via an app.
+2026-02-10 18:07:58,149 - MarketingCrew - INFO - Kickoff Crew...
+2026-02-10 18:08:03,209 - root - INFO - OpenAI API usage: {'prompt_tokens': 605, 'completion_tokens': 66, 'total_tokens': 671}
+2026-02-10 18:08:49,425 - root - INFO - OpenAI API usage: {'prompt_tokens': 1620, 'completion_tokens': 1790, 'total_tokens': 3410}
+2026-02-10 18:09:20,075 - root - INFO - OpenAI API usage: {'prompt_tokens': 3126, 'completion_tokens': 849, 'total_tokens': 3975}
+2026-02-10 18:09:54,818 - root - INFO - OpenAI API usage: {'prompt_tokens': 4537, 'completion_tokens': 1423, 'total_tokens': 5960}
+2026-02-10 18:10:32,836 - root - INFO - OpenAI API usage: {'prompt_tokens': 5945, 'completion_tokens': 1365, 'total_tokens': 7310}
+2026-02-10 18:10:59,585 - root - INFO - OpenAI API usage: {'prompt_tokens': 7126, 'completion_tokens': 808, 'total_tokens': 7934}
+2026-02-10 18:11:13,647 - root - INFO - OpenAI API usage: {'prompt_tokens': 9641, 'completion_tokens': 502, 'total_tokens': 10143}
+2026-02-10 18:11:30,523 - root - INFO - OpenAI API usage: {'prompt_tokens': 709, 'completion_tokens': 596, 'total_tokens': 1305}
+2026-02-10 18:11:32,573 - root - INFO - OpenAI API usage: {'prompt_tokens': 1334, 'completion_tokens': 54, 'total_tokens': 1388}
+2026-02-10 18:11:36,517 - root - INFO - OpenAI API usage: {'prompt_tokens': 1442, 'completion_tokens': 227, 'total_tokens': 1669}
+2026-02-10 18:11:41,365 - root - INFO - OpenAI API usage: {'prompt_tokens': 1701, 'completion_tokens': 136, 'total_tokens': 1837}
+2026-02-10 18:11:41,373 - MarketingCrew - INFO - Crew Execution Completed
+2026-02-10 18:11:41,381 - MarketingCrew - INFO - Results saved in F:\REPOSITORIES\Crewai-mcp-lab\examples\09_marketing_strategy\outputs
+2026-02-10 18:11:44,917 - crewai.cli.config - INFO - Using config path: C:\Users\giova\.config\crewai\settings.json
+2026-02-10 18:13:10,275 - MarketingCrew - INFO - Starting Example 09: Marketing Strategy Campaign
+2026-02-10 18:13:10,277 - MarketingCrew - INFO - Loaded preferences from F:\REPOSITORIES\Crewai-mcp-lab\examples\09_marketing_strategy\config\preferences.yaml
+2026-02-10 18:13:12,293 - MarketingCrew - WARNING - ⚠️  ComfyUI is NOT reachable. Image generation task will likely fail.
+2026-02-10 18:13:12,293 - MarketingCrew - WARNING - Please ensure ComfyUI is running at 127.0.0.1:8188
+2026-02-10 18:13:12,293 - MarketingCrew - INFO - Loading MCP Tools...
+2026-02-10 18:13:13,586 - MarketingCrew - INFO - Loaded 2 search tools.
+2026-02-10 18:13:14,419 - MarketingCrew - INFO - Loaded 2 image generation tools.
+2026-02-10 18:13:14,870 - MarketingCrew - INFO - Target Product: A smart coffee mug that keeps coffee at the perfect temperature and tracks caffeine intake via an app.
+2026-02-10 18:13:14,872 - MarketingCrew - INFO - Kickoff Crew...
+2026-02-10 18:13:18,403 - root - INFO - OpenAI API usage: {'prompt_tokens': 605, 'completion_tokens': 75, 'total_tokens': 680}
+2026-02-10 18:14:25,168 - root - INFO - OpenAI API usage: {'prompt_tokens': 1617, 'completion_tokens': 2522, 'total_tokens': 4139}
+2026-02-10 18:14:27,307 - root - INFO - OpenAI API usage: {'prompt_tokens': 2984, 'completion_tokens': 50, 'total_tokens': 3034}
+2026-02-10 18:14:29,912 - root - INFO - OpenAI API usage: {'prompt_tokens': 4440, 'completion_tokens': 45, 'total_tokens': 4485}
+2026-02-10 18:14:51,839 - root - INFO - OpenAI API usage: {'prompt_tokens': 6297, 'completion_tokens': 897, 'total_tokens': 7194}
+2026-02-10 18:15:07,319 - root - INFO - OpenAI API usage: {'prompt_tokens': 7295, 'completion_tokens': 581, 'total_tokens': 7876}
+2026-02-10 18:15:21,131 - root - INFO - OpenAI API usage: {'prompt_tokens': 9129, 'completion_tokens': 597, 'total_tokens': 9726}
+2026-02-10 18:15:47,028 - root - INFO - OpenAI API usage: {'prompt_tokens': 825, 'completion_tokens': 682, 'total_tokens': 1507}
+2026-02-10 18:15:58,032 - root - INFO - OpenAI API usage: {'prompt_tokens': 1420, 'completion_tokens': 602, 'total_tokens': 2022}
+2026-02-10 18:16:06,280 - root - INFO - OpenAI API usage: {'prompt_tokens': 1590, 'completion_tokens': 394, 'total_tokens': 1984}
+2026-02-10 18:16:12,265 - root - INFO - OpenAI API usage: {'prompt_tokens': 1894, 'completion_tokens': 147, 'total_tokens': 2041}
+2026-02-10 18:16:12,273 - MarketingCrew - INFO - Crew Execution Completed
+2026-02-10 18:16:12,274 - MarketingCrew - INFO - Results saved in F:\REPOSITORIES\Crewai-mcp-lab\examples\09_marketing_strategy\outputs
+2026-02-10 18:16:17,194 - crewai.cli.config - INFO - Using config path: C:\Users\giova\.config\crewai\settings.json
+2026-02-10 18:22:58,523 - MarketingCrew - INFO - Starting Example 09: Marketing Strategy Campaign
+2026-02-10 18:22:58,526 - MarketingCrew - INFO - Loaded preferences from F:\REPOSITORIES\Crewai-mcp-lab\examples\09_marketing_strategy\config\preferences.yaml
+2026-02-10 18:23:00,533 - MarketingCrew - WARNING - ⚠️  ComfyUI is NOT reachable. Image generation task will likely fail.
+2026-02-10 18:23:00,533 - MarketingCrew - WARNING - Please ensure ComfyUI is running at 127.0.0.1:8188
+2026-02-10 18:23:00,533 - MarketingCrew - INFO - Loading MCP Tools...
+2026-02-10 18:23:02,172 - MarketingCrew - INFO - Loaded 2 search tools.
+2026-02-10 18:23:03,165 - MarketingCrew - INFO - Loaded 2 image generation tools.
+2026-02-10 18:23:03,579 - MarketingCrew - INFO - Target Product: A smart coffee mug that keeps coffee at the perfect temperature and tracks caffeine intake via an app.
+2026-02-10 18:23:03,582 - MarketingCrew - INFO - Kickoff Crew...
+2026-02-10 18:23:05,286 - root - ERROR - OpenAI API call failed: Error code: 401 - {'error': {'message': 'Incorrect API key provided: sk-or-v1*************************************************************b131. You can find your API key at https://platform.openai.com/account/api-keys.', 'type': 'invalid_request_error', 'code': 'invalid_api_key', 'param': None}, 'status': 401}
+2026-02-10 18:23:05,286 - root - ERROR - OpenAI API call failed: Error code: 401 - {'error': {'message': 'Incorrect API key provided: sk-or-v1*************************************************************b131. You can find your API key at https://platform.openai.com/account/api-keys.', 'type': 'invalid_request_error', 'code': 'invalid_api_key', 'param': None}, 'status': 401}
+2026-02-10 18:23:05,556 - root - ERROR - OpenAI API call failed: Error code: 401 - {'error': {'message': 'Incorrect API key provided: sk-or-v1*************************************************************b131. You can find your API key at https://platform.openai.com/account/api-keys.', 'type': 'invalid_request_error', 'code': 'invalid_api_key', 'param': None}, 'status': 401}
+2026-02-10 18:23:05,556 - root - ERROR - OpenAI API call failed: Error code: 401 - {'error': {'message': 'Incorrect API key provided: sk-or-v1*************************************************************b131. You can find your API key at https://platform.openai.com/account/api-keys.', 'type': 'invalid_request_error', 'code': 'invalid_api_key', 'param': None}, 'status': 401}
+2026-02-10 18:23:05,885 - root - ERROR - OpenAI API call failed: Error code: 401 - {'error': {'message': 'Incorrect API key provided: sk-or-v1*************************************************************b131. You can find your API key at https://platform.openai.com/account/api-keys.', 'type': 'invalid_request_error', 'code': 'invalid_api_key', 'param': None}, 'status': 401}
+2026-02-10 18:23:05,885 - root - ERROR - OpenAI API call failed: Error code: 401 - {'error': {'message': 'Incorrect API key provided: sk-or-v1*************************************************************b131. You can find your API key at https://platform.openai.com/account/api-keys.', 'type': 'invalid_request_error', 'code': 'invalid_api_key', 'param': None}, 'status': 401}
+2026-02-10 18:23:08,184 - crewai.cli.config - INFO - Using config path: C:\Users\giova\.config\crewai\settings.json
+2026-02-10 18:25:55,236 - MarketingCrew - INFO - Starting Example 09: Marketing Strategy Campaign
+2026-02-10 18:25:55,239 - MarketingCrew - INFO - Loaded preferences from F:\REPOSITORIES\Crewai-mcp-lab\examples\09_marketing_strategy\config\preferences.yaml
+2026-02-10 18:25:57,244 - MarketingCrew - WARNING - ⚠️  ComfyUI is NOT reachable. Image generation task will likely fail.
+2026-02-10 18:25:57,244 - MarketingCrew - WARNING - Please ensure ComfyUI is running at 127.0.0.1:8188
+2026-02-10 18:25:57,244 - MarketingCrew - INFO - Loading MCP Tools...
+2026-02-10 18:25:58,519 - MarketingCrew - INFO - Loaded 2 search tools.
+2026-02-10 18:25:59,398 - MarketingCrew - INFO - Loaded 2 image generation tools.
+2026-02-10 18:25:59,398 - MarketingCrew - INFO - Target Product: A smart coffee mug that keeps coffee at the perfect temperature and tracks caffeine intake via an app.
+2026-02-10 18:25:59,401 - MarketingCrew - INFO - Kickoff Crew...
+2026-02-10 18:26:00,092 - LiteLLM - INFO - 
+LiteLLM completion() model= gpt-4o; provider = openrouter
+2026-02-10 18:26:03,596 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-02-10 18:26:05,072 - LiteLLM - INFO - 
+LiteLLM completion() model= gpt-4o; provider = openrouter
+2026-02-10 18:26:05,749 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-02-10 18:26:06,470 - LiteLLM - INFO - 
+LiteLLM completion() model= gpt-4o; provider = openrouter
+2026-02-10 18:26:07,231 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-02-10 18:26:09,340 - LiteLLM - INFO - 
+LiteLLM completion() model= gpt-4o; provider = openrouter
+2026-02-10 18:26:10,195 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-02-10 18:26:10,900 - LiteLLM - INFO - 
+LiteLLM completion() model= gpt-4o; provider = openrouter
+2026-02-10 18:26:11,569 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-02-10 18:26:12,771 - LiteLLM - INFO - 
+LiteLLM completion() model= gpt-4o; provider = openrouter
+2026-02-10 18:26:13,390 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-02-10 18:26:13,810 - LiteLLM - INFO - 
+LiteLLM completion() model= gpt-4o; provider = openrouter
+2026-02-10 18:26:14,744 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-02-10 18:26:16,507 - LiteLLM - INFO - 
+LiteLLM completion() model= gpt-4o; provider = openrouter
+2026-02-10 18:26:17,284 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-02-10 18:26:18,623 - LiteLLM - INFO - 
+LiteLLM completion() model= gpt-4o; provider = openrouter
+2026-02-10 18:26:29,788 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-02-10 18:26:29,803 - LiteLLM - INFO - 
+LiteLLM completion() model= gpt-4o; provider = openrouter
+2026-02-10 18:26:40,160 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-02-10 18:26:40,176 - LiteLLM - INFO - 
+LiteLLM completion() model= gpt-4o; provider = openrouter
+2026-02-10 18:26:41,797 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-02-10 18:26:41,808 - LiteLLM - INFO - 
+LiteLLM completion() model= gpt-4o; provider = openrouter
+2026-02-10 18:26:44,509 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-02-10 18:26:46,560 - LiteLLM - INFO - 
+LiteLLM completion() model= gpt-4o; provider = openrouter
+2026-02-10 18:26:49,259 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-02-10 18:26:49,267 - LiteLLM - INFO - 
+LiteLLM completion() model= gpt-4o; provider = openrouter
+2026-02-10 18:26:50,472 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-02-10 18:26:50,480 - MarketingCrew - INFO - Crew Execution Completed
+2026-02-10 18:26:50,481 - MarketingCrew - INFO - Results saved in F:\REPOSITORIES\Crewai-mcp-lab\examples\09_marketing_strategy\outputs
+2026-02-10 18:26:54,218 - crewai.cli.config - INFO - Using config path: C:\Users\giova\.config\crewai\settings.json
+2026-02-10 18:32:47,329 - MarketingCrew - INFO - Starting Example 09: Marketing Strategy Campaign
+2026-02-10 18:32:47,332 - MarketingCrew - INFO - Loaded preferences from F:\REPOSITORIES\Crewai-mcp-lab\examples\09_marketing_strategy\config\preferences.yaml
+2026-02-10 18:32:49,342 - MarketingCrew - WARNING - ⚠️  ComfyUI is NOT reachable. Image generation task will likely fail.
+2026-02-10 18:32:49,343 - MarketingCrew - WARNING - Please ensure ComfyUI is running at 127.0.0.1:8188
+2026-02-10 18:32:49,343 - MarketingCrew - INFO - Loading MCP Tools...
+2026-02-10 18:32:50,653 - MarketingCrew - INFO - Loaded 2 search tools.
+2026-02-10 18:32:51,570 - MarketingCrew - INFO - Loaded 2 image generation tools.
+2026-02-10 18:32:51,571 - MarketingCrew - INFO - Target Product: A smart coffee mug that keeps coffee at the perfect temperature and tracks caffeine intake via an app.
+2026-02-10 18:32:51,574 - MarketingCrew - INFO - Kickoff Crew...
+2026-02-10 18:32:52,338 - LiteLLM - INFO - 
+LiteLLM completion() model= gpt-4o; provider = openrouter
+2026-02-10 18:32:55,352 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-02-10 18:32:56,854 - LiteLLM - INFO - 
+LiteLLM completion() model= gpt-4o; provider = openrouter
+2026-02-10 18:32:59,523 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-02-10 18:33:00,090 - LiteLLM - INFO - 
+LiteLLM completion() model= gpt-4o; provider = openrouter
+2026-02-10 18:33:02,522 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-02-10 18:33:03,465 - LiteLLM - INFO - 
+LiteLLM completion() model= gpt-4o; provider = openrouter
+2026-02-10 18:33:20,872 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-02-10 18:33:20,891 - LiteLLM - INFO - 
+LiteLLM completion() model= gpt-4o; provider = openrouter
+2026-02-10 18:33:32,510 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-02-10 18:33:32,534 - LiteLLM - INFO - 
+LiteLLM completion() model= gpt-4o; provider = openrouter
+2026-02-10 18:33:36,042 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-02-10 18:33:36,055 - LiteLLM - INFO - 
+LiteLLM completion() model= gpt-4o; provider = openrouter
+2026-02-10 18:33:37,612 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-02-10 18:33:37,625 - MarketingCrew - INFO - Crew Execution Completed
+2026-02-10 18:33:37,628 - MarketingCrew - INFO - Results saved in F:\REPOSITORIES\Crewai-mcp-lab\examples\09_marketing_strategy\outputs
+2026-02-10 18:33:40,447 - crewai.cli.config - INFO - Using config path: C:\Users\giova\.config\crewai\settings.json
+2026-02-10 18:34:31,993 - MarketingCrew - INFO - Starting Example 09: Marketing Strategy Campaign
+2026-02-10 18:34:31,996 - MarketingCrew - INFO - Loaded preferences from F:\REPOSITORIES\Crewai-mcp-lab\examples\09_marketing_strategy\config\preferences.yaml
+2026-02-10 18:34:33,999 - MarketingCrew - WARNING - ⚠️  ComfyUI is NOT reachable. Image generation task will likely fail.
+2026-02-10 18:34:33,999 - MarketingCrew - WARNING - Please ensure ComfyUI is running at 127.0.0.1:8188
+2026-02-10 18:34:33,999 - MarketingCrew - INFO - Loading MCP Tools...
+2026-02-10 18:34:35,630 - MarketingCrew - INFO - Loaded 2 search tools.
+2026-02-10 18:34:36,554 - MarketingCrew - INFO - Loaded 2 image generation tools.
+2026-02-10 18:34:36,555 - MarketingCrew - INFO - Target Product: A smart coffee mug that keeps coffee at the perfect temperature and tracks caffeine intake via an app.
+2026-02-10 18:34:36,558 - MarketingCrew - INFO - Kickoff Crew...
+2026-02-10 18:34:37,274 - LiteLLM - INFO - 
+LiteLLM completion() model= gpt-4o; provider = openrouter
+2026-02-10 18:34:39,729 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-02-10 18:34:41,053 - LiteLLM - INFO - 
+LiteLLM completion() model= gpt-4o; provider = openrouter
+2026-02-10 18:34:42,126 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-02-10 18:34:42,598 - LiteLLM - INFO - 
+LiteLLM completion() model= gpt-4o; provider = openrouter
+2026-02-10 18:34:43,384 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-02-10 18:34:55,894 - LiteLLM - INFO - 
+LiteLLM completion() model= gpt-4o; provider = openrouter
+2026-02-10 18:34:57,729 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-02-10 18:34:59,182 - LiteLLM - INFO - 
+LiteLLM completion() model= gpt-4o; provider = openrouter
+2026-02-10 18:35:00,345 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-02-10 18:35:00,688 - LiteLLM - INFO - 
+LiteLLM completion() model= gpt-4o; provider = openrouter
+2026-02-10 18:35:01,750 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-02-10 18:35:02,790 - LiteLLM - INFO - 
+LiteLLM completion() model= gpt-4o; provider = openrouter
+2026-02-10 18:35:12,845 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-02-10 18:35:12,861 - LiteLLM - INFO - 
+LiteLLM completion() model= gpt-4o; provider = openrouter
+2026-02-10 18:35:25,618 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-02-10 18:35:25,634 - LiteLLM - INFO - 
+LiteLLM completion() model= gpt-4o; provider = openrouter
+2026-02-10 18:35:28,636 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-02-10 18:35:28,648 - LiteLLM - INFO - 
+LiteLLM completion() model= gpt-4o; provider = openrouter
+2026-02-10 18:35:31,944 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-02-10 18:35:31,952 - MarketingCrew - INFO - Crew Execution Completed
+2026-02-10 18:35:31,958 - MarketingCrew - INFO - Results saved in F:\REPOSITORIES\Crewai-mcp-lab\examples\09_marketing_strategy\outputs
+2026-02-10 18:35:35,056 - crewai.cli.config - INFO - Using config path: C:\Users\giova\.config\crewai\settings.json
+2026-02-10 18:55:21,277 - MarketingCrew - INFO - Starting Example 09: Marketing Strategy Campaign
+2026-02-10 18:55:21,281 - MarketingCrew - INFO - Loaded preferences from F:\REPOSITORIES\Crewai-mcp-lab\examples\09_marketing_strategy\config\preferences.yaml
+2026-02-10 18:55:21,304 - MarketingCrew - INFO - ✅ ComfyUI is reachable.
+2026-02-10 18:55:21,305 - MarketingCrew - INFO - Loading MCP Tools...
+2026-02-10 18:55:24,707 - MarketingCrew - INFO - Loaded 2 search tools.
+2026-02-10 18:55:25,756 - MarketingCrew - INFO - Loaded 2 image generation tools.
+2026-02-10 18:55:25,757 - MarketingCrew - INFO - Target Product: A smart coffee mug that keeps coffee at the perfect temperature and tracks caffeine intake via an app.
+2026-02-10 18:55:25,764 - MarketingCrew - INFO - Kickoff Crew...
+2026-02-10 18:55:28,651 - LiteLLM - INFO - 
+LiteLLM completion() model= gpt-4o; provider = openrouter
+2026-02-10 18:55:30,955 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-02-10 18:55:32,562 - LiteLLM - INFO - 
+LiteLLM completion() model= gpt-4o; provider = openrouter
+2026-02-10 18:55:33,719 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-02-10 18:55:36,727 - LiteLLM - INFO - 
+LiteLLM completion() model= gpt-4o; provider = openrouter
+2026-02-10 18:55:40,620 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-02-10 18:55:41,981 - LiteLLM - INFO - 
+LiteLLM completion() model= gpt-4o; provider = openrouter
+2026-02-10 18:55:43,089 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-02-10 18:55:45,453 - LiteLLM - INFO - 
+LiteLLM completion() model= gpt-4o; provider = openrouter
+2026-02-10 18:55:47,086 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-02-10 18:55:48,134 - LiteLLM - INFO - 
+LiteLLM completion() model= gpt-4o; provider = openrouter
+2026-02-10 18:55:55,773 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-02-10 18:55:57,270 - LiteLLM - INFO - 
+LiteLLM completion() model= gpt-4o; provider = openrouter
+2026-02-10 18:55:58,455 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-02-10 18:55:59,947 - LiteLLM - INFO - 
+LiteLLM completion() model= gpt-4o; provider = openrouter
+2026-02-10 18:56:19,888 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-02-10 18:56:19,911 - LiteLLM - INFO - 
+LiteLLM completion() model= gpt-4o; provider = openrouter
+2026-02-10 18:56:33,097 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-02-10 18:56:33,116 - LiteLLM - INFO - 
+LiteLLM completion() model= gpt-4o; provider = openrouter
+2026-02-10 18:56:34,819 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-02-10 18:56:34,833 - LiteLLM - INFO - 
+LiteLLM completion() model= gpt-4o; provider = openrouter
+2026-02-10 18:56:37,588 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-02-10 18:56:53,660 - LiteLLM - INFO - 
+LiteLLM completion() model= gpt-4o; provider = openrouter
+2026-02-10 18:56:56,065 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-02-10 18:56:56,075 - MarketingCrew - INFO - Crew Execution Completed
+2026-02-10 18:56:56,076 - MarketingCrew - INFO - Results saved in F:\REPOSITORIES\Crewai-mcp-lab\examples\09_marketing_strategy\outputs
+2026-02-10 18:57:01,761 - crewai.cli.config - INFO - Using config path: C:\Users\giova\.config\crewai\settings.json

@@ -206,10 +206,19 @@ def generate_image(workflow_name: str, prompt: str, negative_prompt: str = "", s
         
         import shutil
         if output_path:
-            # Treat output_path as a full file path (not directory)
-            output_dir = os.path.dirname(output_path)
-            if output_dir and not os.path.exists(output_dir):
-                os.makedirs(output_dir, exist_ok=True)
+            # Check if output_path is intended as a directory
+            if os.path.isdir(output_path) or (not os.path.splitext(output_path)[1]):
+                # It's a directory
+                if not os.path.exists(output_path):
+                    os.makedirs(output_path, exist_ok=True)
+                # We will append filename later in the loop
+                target_is_dir = True
+            else:
+                # Treat output_path as a full file path
+                output_dir = os.path.dirname(output_path)
+                if output_dir and not os.path.exists(output_dir):
+                    os.makedirs(output_dir, exist_ok=True)
+                target_is_dir = False
 
         for node_id, node_output in outputs.items():
             if 'images' in node_output:
@@ -222,13 +231,20 @@ def generate_image(workflow_name: str, prompt: str, negative_prompt: str = "", s
                     original_file_path = os.path.join(COMFYUI_OUTPUT_DIR, subfolder, fname)
                     
                     if output_path:
-                        # If multiple images are generated, append index to avoid overwrite
-                        # First image gets the exact output_path name
-                        if len(results) > 0:
-                            base, ext = os.path.splitext(output_path)
-                            dest_path = f"{base}_{len(results)}{ext}"
+                        if target_is_dir:
+                            dest_path = os.path.join(output_path, fname)
+                            # Handle duplicates
+                            if os.path.exists(dest_path):
+                                base, ext = os.path.splitext(fname)
+                                dest_path = os.path.join(output_path, f"{base}_{len(results)}{ext}")
                         else:
-                            dest_path = output_path
+                            # If multiple images are generated, append index to avoid overwrite
+                            # First image gets the exact output_path name
+                            if len(results) > 0:
+                                base, ext = os.path.splitext(output_path)
+                                dest_path = f"{base}_{len(results)}{ext}"
+                            else:
+                                dest_path = output_path
                             
                         try:
                             # Download via API instead of local copy for remote compatibility

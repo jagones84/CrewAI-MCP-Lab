@@ -1,0 +1,38 @@
+
+llm:
+  # Provider: openai, ollama, llamacpp, openrouter
+  provider: "openai"
+  
+  # OpenAI Configuration
+  openai:
+    model: "gpt-4o"
+    # api_key: "sk-..." # Set via env var OPENAI_API_KEY
+
+  # Ollama Configuration
+  ollama:
+    model: "llama3"
+    base_url: "http://localhost:11434/v1"
+    # Optional: Path to executable if you want auto-start
+    # executable_path: "C:\\Users\\User\\AppData\\Local\\Programs\\Ollama\\ollama.exe"
+
+  # LlamaCpp Configuration
+  llamacpp:
+    model: "llama-3-8b-instruct.Q4_K_M.gguf"
+    models_dir: "C:/AI/models"
+    executable_path: "C:/AI/llama.cpp/llama-server.exe"
+    n_gpu_layers: 35
+    ctx_size: 4096
+
+# ComfyUI Configuration
+comfyui:
+  # Set to path of your ComfyUI installation (folder containing main.py)
+  # install_path: "C:\\AI\\ComfyUI_windows_portable\\ComfyUI"
+  # If using portable version, point to the run script or python inside it?
+  # Usually better to point to the python executable and main.py
+  # For now, let's assume standard install or portable.
+  # install_path: "F:\\ComfyUI"
+  host: "127.0.0.1"
+  port: 8188
+
+outputs:
+  dir: "outputs"

@@ -1,0 +1,8 @@
+crewai
+crewai-tools
+mcp
+pyyaml
+python-dotenv
+langchain-core
+psutil
+requests
