@@ -1,0 +1,91 @@
+2026-08-07 21:00:02 - comfyui_image_gen - INFO - Starting Example 04: ComfyUI Image Generation
+2026-08-07 21:00:02 - comfyui_image_gen - INFO - Using ComfyUI MCP server: comfyui-dgspark (reachable=True)
+2026-08-07 21:00:18 - comfyui_image_gen - INFO - Starting Example 04: ComfyUI Image Generation
+2026-08-07 21:00:18 - comfyui_image_gen - INFO - Using ComfyUI MCP server: comfyui-dgspark (reachable=True)
+2026-08-07 21:00:19 - comfyui_image_gen - INFO - Loaded 2 ComfyUI tool(s): ['generate_image', 'list_workflows']
+2026-08-07 21:00:19 - comfyui_image_gen - INFO - Kicking off image generation crew...
+2026-08-07 21:01:07 - comfyui_image_gen - INFO - Crew completed in 47.9s
+2026-08-07 21:01:07 - comfyui_image_gen - INFO - ✅ Image generated successfully: F:\REPOSITORIES\Crewai-mcp-lab\examples\04_comfyui_image_gen\outputs\generated_image.png (2173.1 KB)
+2026-08-07 21:24:07 - comfyui_image_gen - INFO - Starting Example 04: ComfyUI Image Generation
+2026-08-07 21:24:07 - comfyui_image_gen - INFO - Pipeline: full
+2026-08-07 21:24:07 - comfyui_image_gen - INFO - Using ComfyUI MCP server: comfyui-dgspark (reachable=True)
+2026-08-07 21:24:07 - comfyui_image_gen - INFO - Requested tool surface: ['generate_image', 'modify_image', 'upscale_image', 'remove_background', 'list_workflows']
+2026-08-07 21:24:08 - comfyui_image_gen - INFO - Loaded 5 ComfyUI tool(s): ['generate_image', 'modify_image', 'upscale_image', 'remove_background', 'list_workflows']
+2026-08-07 21:24:08 - comfyui_image_gen - INFO - Kicking off full crew (3 task(s))...
+2026-08-07 21:24:17 - comfyui_image_gen - INFO - Crew completed in 9.1s
+2026-08-07 21:24:17 - comfyui_image_gen - ERROR - Pipeline full finished but no file was produced at f:\REPOSITORIES\Crewai-mcp-lab\examples\04_comfyui_image_gen\outputs\modified.png. Check that the corresponding ComfyUI tool received a file path (not a directory).
+2026-08-07 21:24:17 - comfyui_image_gen - ERROR - Pipeline full finished but no file was produced at f:\REPOSITORIES\Crewai-mcp-lab\examples\04_comfyui_image_gen\outputs\upscaled.png. Check that the corresponding ComfyUI tool received a file path (not a directory).
+2026-08-07 21:25:18 - comfyui_image_gen - INFO - Starting Example 04: ComfyUI Image Generation
+2026-08-07 21:25:18 - comfyui_image_gen - INFO - Pipeline: full
+2026-08-07 21:25:18 - comfyui_image_gen - INFO - Using ComfyUI MCP server: comfyui-dgspark (reachable=True)
+2026-08-07 21:25:18 - comfyui_image_gen - INFO - Requested tool surface: ['generate_image', 'modify_image', 'upscale_image', 'remove_background', 'list_workflows']
+2026-08-07 21:25:20 - comfyui_image_gen - INFO - Loaded 5 ComfyUI tool(s): ['generate_image', 'modify_image', 'upscale_image', 'remove_background', 'list_workflows']
+2026-08-07 21:25:20 - comfyui_image_gen - INFO - Kicking off full crew (3 task(s))...
+2026-08-07 21:25:20 - comfyui_image_gen - ERROR - Crew failed: Error deleting task outputs: unable to open database file
+2026-08-07 21:28:21 - comfyui_image_gen - INFO - Starting Example 04: ComfyUI Image Generation
+2026-08-07 21:28:21 - comfyui_image_gen - INFO - Pipeline: full
+2026-08-07 21:28:21 - comfyui_image_gen - INFO - Using ComfyUI MCP server: comfyui-dgspark (reachable=True)
+2026-08-07 21:28:21 - comfyui_image_gen - INFO - Requested tool surface: ['generate_image', 'modify_image', 'upscale_image', 'remove_background', 'list_workflows']
+2026-08-07 21:28:23 - comfyui_image_gen - INFO - Loaded 5 ComfyUI tool(s): ['generate_image', 'modify_image', 'upscale_image', 'remove_background', 'list_workflows']
+2026-08-07 21:28:23 - comfyui_image_gen - INFO - Kicking off full crew (3 task(s))...
+2026-08-07 21:28:32 - comfyui_image_gen - INFO - Crew completed in 9.1s
+2026-08-07 21:28:32 - comfyui_image_gen - ERROR - Pipeline full finished but no file was produced at f:\REPOSITORIES\Crewai-mcp-lab\examples\04_comfyui_image_gen\outputs\modified.png. Check that the corresponding ComfyUI tool received a file path (not a directory).
+2026-08-07 21:28:32 - comfyui_image_gen - ERROR - Pipeline full finished but no file was produced at f:\REPOSITORIES\Crewai-mcp-lab\examples\04_comfyui_image_gen\outputs\upscaled.png. Check that the corresponding ComfyUI tool received a file path (not a directory).
+2026-08-07 21:30:06 - comfyui_image_gen - INFO - Starting Example 04: ComfyUI Image Generation
+2026-08-07 21:30:06 - comfyui_image_gen - INFO - Pipeline: full
+2026-08-07 21:30:06 - comfyui_image_gen - INFO - Using ComfyUI MCP server: comfyui-dgspark (reachable=True)
+2026-08-07 21:30:06 - comfyui_image_gen - INFO - Requested tool surface: ['generate_image', 'modify_image', 'upscale_image', 'remove_background', 'list_workflows']
+2026-08-07 21:30:07 - comfyui_image_gen - INFO - Loaded 5 ComfyUI tool(s): ['generate_image', 'modify_image', 'upscale_image', 'remove_background', 'list_workflows']
+2026-08-07 21:30:07 - comfyui_image_gen - INFO - Kicking off full crew (3 task(s))...
+2026-08-07 21:34:59 - comfyui_image_gen - INFO - Crew completed in 291.8s
+2026-08-07 21:34:59 - comfyui_image_gen - ERROR - Pipeline full finished but no file was produced at f:\REPOSITORIES\Crewai-mcp-lab\examples\04_comfyui_image_gen\outputs\modified.png. Check that the corresponding ComfyUI tool received a file path (not a directory).
+2026-08-07 21:34:59 - comfyui_image_gen - ERROR - Pipeline full finished but no file was produced at f:\REPOSITORIES\Crewai-mcp-lab\examples\04_comfyui_image_gen\outputs\upscaled.png. Check that the corresponding ComfyUI tool received a file path (not a directory).
+2026-08-07 21:37:08 - comfyui_image_gen - INFO - Starting Example 04: ComfyUI Image Generation
+2026-08-07 21:37:08 - comfyui_image_gen - INFO - Pipeline: full
+2026-08-07 21:37:08 - comfyui_image_gen - WARNING - ComfyUI is not reachable. Falling back to the bundled mock server (allow_mock_fallback=true).
+2026-08-07 21:37:08 - comfyui_image_gen - INFO - Requested tool surface: ['generate_image', 'modify_image', 'upscale_image', 'remove_background', 'list_workflows']
+2026-08-07 21:37:09 - comfyui_image_gen - INFO - Loaded 5 ComfyUI tool(s): ['list_workflows', 'generate_image', 'modify_image', 'upscale_image', 'remove_background']
+2026-08-07 21:37:09 - comfyui_image_gen - INFO - Kicking off full crew (3 task(s))...
+2026-08-07 21:37:18 - comfyui_image_gen - INFO - Crew completed in 9.0s
+2026-08-07 21:37:18 - comfyui_image_gen - INFO - ✅ full ready: f:\REPOSITORIES\Crewai-mcp-lab\examples\04_comfyui_image_gen\outputs\generated.png (0.1 KB)
+2026-08-07 21:37:18 - comfyui_image_gen - INFO - ✅ full ready: f:\REPOSITORIES\Crewai-mcp-lab\examples\04_comfyui_image_gen\outputs\modified.png (0.1 KB)
+2026-08-07 21:37:18 - comfyui_image_gen - INFO - ✅ full ready: f:\REPOSITORIES\Crewai-mcp-lab\examples\04_comfyui_image_gen\outputs\upscaled.png (0.1 KB)
+2026-08-07 21:51:21 - comfyui_image_gen - INFO - Starting Example 04: ComfyUI Image Generation
+2026-08-07 21:51:21 - comfyui_image_gen - INFO - Pipeline: full
+2026-08-07 21:51:21 - comfyui_image_gen - INFO - Using ComfyUI MCP server: comfyui-dgspark (reachable=True)
+2026-08-07 21:51:21 - comfyui_image_gen - INFO - Requested tool surface: ['generate_image', 'modify_image', 'upscale_image', 'remove_background', 'list_workflows']
+2026-08-07 21:51:23 - comfyui_image_gen - INFO - Loaded 5 ComfyUI tool(s): ['generate_image', 'modify_image', 'upscale_image', 'remove_background', 'list_workflows']
+2026-08-07 21:51:23 - comfyui_image_gen - INFO - Kicking off full crew (3 task(s))...
+2026-08-07 21:58:52 - comfyui_image_gen - INFO - Crew completed in 449.4s
+2026-08-07 21:58:52 - comfyui_image_gen - ERROR - Pipeline full finished but no file was produced at f:\REPOSITORIES\Crewai-mcp-lab\examples\04_comfyui_image_gen\outputs\modified.png. Check that the corresponding ComfyUI tool received a file path (not a directory).
+2026-08-07 21:58:52 - comfyui_image_gen - ERROR - Pipeline full finished but no file was produced at f:\REPOSITORIES\Crewai-mcp-lab\examples\04_comfyui_image_gen\outputs\upscaled.png. Check that the corresponding ComfyUI tool received a file path (not a directory).
+2026-08-07 22:06:36 - comfyui_image_gen - INFO - Starting Example 04: ComfyUI Image Generation
+2026-08-07 22:06:36 - comfyui_image_gen - INFO - Pipeline: full
+2026-08-07 22:06:36 - comfyui_image_gen - INFO - Using ComfyUI MCP server: comfyui-dgspark (reachable=True)
+2026-08-07 22:06:36 - comfyui_image_gen - INFO - Requested tool surface: ['generate_image', 'modify_image', 'upscale_image', 'remove_background', 'list_workflows']
+2026-08-07 22:06:37 - comfyui_image_gen - INFO - Loaded 5 ComfyUI tool(s): ['generate_image', 'modify_image', 'upscale_image', 'remove_background', 'list_workflows']
+2026-08-07 22:06:37 - comfyui_image_gen - INFO - Kicking off full crew (3 task(s))...
+2026-08-07 22:08:09 - comfyui_image_gen - INFO - Crew completed in 92.3s
+2026-08-07 22:08:09 - comfyui_image_gen - INFO - ✅ full ready: f:\REPOSITORIES\Crewai-mcp-lab\examples\04_comfyui_image_gen\outputs\generated.png (2173.1 KB)
+2026-08-07 22:08:09 - comfyui_image_gen - INFO - ✅ full ready: f:\REPOSITORIES\Crewai-mcp-lab\examples\04_comfyui_image_gen\outputs\modified.png (2011.5 KB)
+2026-08-07 22:08:09 - comfyui_image_gen - INFO - ✅ full ready: f:\REPOSITORIES\Crewai-mcp-lab\examples\04_comfyui_image_gen\outputs\upscaled.png (32521.1 KB)
+2026-08-07 22:27:39 - comfyui_image_gen - INFO - Starting Example 04: ComfyUI Image Generation
+2026-08-07 22:27:39 - comfyui_image_gen - INFO - Pipeline: full
+2026-08-07 22:27:39 - comfyui_image_gen - INFO - Using ComfyUI MCP server: comfyui-dgspark (reachable=True)
+2026-08-07 22:27:39 - comfyui_image_gen - INFO - Requested tool surface: ['generate_image', 'modify_image', 'upscale_image', 'remove_background', 'list_workflows']
+2026-08-07 22:27:40 - comfyui_image_gen - INFO - Loaded 5 ComfyUI tool(s): ['generate_image', 'modify_image', 'upscale_image', 'remove_background', 'list_workflows']
+2026-08-07 22:27:40 - comfyui_image_gen - INFO - Kicking off full crew (3 task(s))...
+2026-08-07 22:29:28 - comfyui_image_gen - INFO - Crew completed in 107.8s
+2026-08-07 22:29:28 - comfyui_image_gen - INFO - ✅ full ready: f:\REPOSITORIES\Crewai-mcp-lab\examples\04_comfyui_image_gen\outputs\generated.png (2295.8 KB)
+2026-08-07 22:29:28 - comfyui_image_gen - INFO - ✅ full ready: f:\REPOSITORIES\Crewai-mcp-lab\examples\04_comfyui_image_gen\outputs\modified.png (1493.8 KB)
+2026-08-07 22:29:28 - comfyui_image_gen - INFO - ✅ full ready: f:\REPOSITORIES\Crewai-mcp-lab\examples\04_comfyui_image_gen\outputs\upscaled.png (23624.2 KB)
+2026-08-07 22:32:58 - comfyui_image_gen - INFO - Starting Example 04: ComfyUI Image Generation
+2026-08-07 22:32:58 - comfyui_image_gen - INFO - Pipeline: full
+2026-08-07 22:32:58 - comfyui_image_gen - INFO - Using ComfyUI MCP server: comfyui-dgspark (reachable=True)
+2026-08-07 22:32:58 - comfyui_image_gen - INFO - Requested tool surface: ['generate_image', 'modify_image', 'upscale_image', 'remove_background', 'list_workflows']
+2026-08-07 22:33:00 - comfyui_image_gen - INFO - Loaded 5 ComfyUI tool(s): ['generate_image', 'modify_image', 'upscale_image', 'remove_background', 'list_workflows']
+2026-08-07 22:33:00 - comfyui_image_gen - INFO - Kicking off full crew (3 task(s))...
+2026-08-07 22:34:48 - comfyui_image_gen - INFO - Crew completed in 108.1s
+2026-08-07 22:34:48 - comfyui_image_gen - INFO - ✅ full ready: f:\REPOSITORIES\Crewai-mcp-lab\examples\04_comfyui_image_gen\outputs\generated.png (2295.8 KB)
+2026-08-07 22:34:48 - comfyui_image_gen - INFO - ✅ full ready: f:\REPOSITORIES\Crewai-mcp-lab\examples\04_comfyui_image_gen\outputs\modified.png (1535.0 KB)
+2026-08-07 22:34:48 - comfyui_image_gen - INFO - ✅ full ready: f:\REPOSITORIES\Crewai-mcp-lab\examples\04_comfyui_image_gen\outputs\upscaled.png (24329.3 KB)

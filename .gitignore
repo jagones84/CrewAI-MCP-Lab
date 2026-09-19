@@ -47,11 +47,10 @@ tmp/
 BACKUPS/
 tests/diagnostic_*.py
 
-# Exclude older examples (Only 05 and 06 are active)
+# Exclude retired example slots (only 04+ are active)
 examples/01*
 examples/02*
 examples/03*
-examples/04*
 examples/README.md
 
 # Ensure empty output folders are tracked
