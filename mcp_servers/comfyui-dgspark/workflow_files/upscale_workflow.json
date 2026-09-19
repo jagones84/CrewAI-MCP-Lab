@@ -9,9 +9,25 @@
       "title": "Load Image"
     }
   },
+  "10": {
+    "inputs": {
+      "image": [
+        "1",
+        0
+      ],
+      "upscale_method": "lanczos",
+      "width": 1024,
+      "height": 1024,
+      "crop": "center"
+    },
+    "class_type": "ImageScale",
+    "_meta": {
+      "title": "Image Scale to 1024"
+    }
+  },
   "2": {
     "inputs": {
-      "model_name": "RealESRGAN_x4plus.pth"
+      "model_name": "4x-UltraSharp.pth"
     },
     "class_type": "UpscaleModelLoader",
     "_meta": {
@@ -25,7 +41,7 @@
         0
       ],
       "image": [
-        "1",
+        "10",
         0
       ]
     },

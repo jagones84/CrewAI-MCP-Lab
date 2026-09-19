@@ -8,10 +8,17 @@ from crewai import Crew, Process, LLM
 # Setup paths
 current_dir = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(current_dir)
+example_root = os.path.dirname(current_dir)
+repo_root = os.path.dirname(os.path.dirname(example_root))
 
 from utils.mcp_loader import MCPLoader
 from agents import FinancialAgents
 from tasks import FinancialTasks
+
+
+STALE_OPENROUTER_MODELS = {
+    "google/gemini-2.0-flash-001": "google/gemini-2.5-flash-lite",
+}
 
 # Setup logging
 logging.basicConfig(level=logging.INFO)
@@ -22,20 +29,35 @@ def load_config():
     with open(config_path, 'r') as f:
         return yaml.safe_load(f)
 
+
+def get_env_file_path():
+    return os.path.join(repo_root, ".env")
+
 def get_llm(config):
     llm_conf = config.get("llm", {})
     provider = llm_conf.get("provider", "ollama")
     model = llm_conf.get("model", "llama3")
     base_url = llm_conf.get("base_url", "http://localhost:11434")
-    
+    temperature = llm_conf.get("temperature", 0.2)
+
     if provider == "ollama":
-        return LLM(model=f"ollama/{model}", base_url=base_url)
+        return LLM(model=f"ollama/{model}", base_url=base_url, temperature=temperature)
+    elif provider == "openrouter" or "openrouter.ai" in (base_url or "").lower():
+        api_key = os.environ.get("OPENROUTER_API_KEY") or os.environ.get("OPENAI_API_KEY")
+        model = os.environ.get("OPENROUTER_MODEL") or model
+        model = STALE_OPENROUTER_MODELS.get(model, model)
+        if model and not model.startswith("openrouter/"):
+            model = f"openrouter/{model}"
+        if api_key and not os.environ.get("OPENROUTER_API_KEY"):
+            os.environ["OPENROUTER_API_KEY"] = api_key
+        os.environ.pop("OPENAI_API_BASE", None)
+        return LLM(model=model, api_key=api_key, temperature=temperature)
     else:
         # Fallback or other providers
-        return LLM(model=model)
+        return LLM(model=model, temperature=temperature)
 
 def main():
-    load_dotenv()
+    load_dotenv(get_env_file_path(), override=True)
     config = load_config()
     
     # 1. Load MCP Tools

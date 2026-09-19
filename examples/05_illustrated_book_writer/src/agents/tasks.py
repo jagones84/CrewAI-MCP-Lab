@@ -41,6 +41,7 @@ class BookTasks:
             5. For EACH character, provide:
                - Name
                - Role
+               - Gender/Sex for visual generation (must be explicit: male or female)
                - Physical Appearance (Detailed for image generation, as a STRING)
                - Personality/Psychology (As a STRING)
                - Backstory (The "Ghost" or trauma)
@@ -51,6 +52,7 @@ class BookTasks:
                     {{
                         "name": "...",
                         "role": "...",
+                        "gender": "male or female",
                         "appearance": "...",
                         "personality": "...",
                         "backstory": "..."
@@ -66,22 +68,21 @@ class BookTasks:
     def structure_task(self, agent, genre, title, chapter_count=5, master_plot="", character_context=""):
         return Task(
             description=f"""
-            Create a detailed outline for a {genre} book titled '{title}' with exactly {chapter_count} CHAPTERS.
-            
-            MASTER PLOT CONTEXT:
+            Create an outline for '{title}' ({genre}) with exactly {chapter_count} chapters.
+
+            Use this compressed story context:
+            MASTER PLOT:
             {master_plot}
-            
+
             CHARACTERS:
             {character_context}
-            
-            Your job:
-            Translate the Master Plot into a chapter-by-chapter structure.
-            For each chapter, provide:
-            1. Title
-            2. Plot Summary (Ensure it advances the central conflict and character arcs)
-            3. A "Visual Concept" describing the key scene to be illustrated.
-            
-            Return the outline as valid JSON:
+
+            For each chapter return only:
+            1. title
+            2. summary advancing the core conflict and character arcs
+            3. visual_concept for one key illustration
+
+            Output valid JSON only:
             {{
                 "outline": [
                     {{
@@ -179,11 +180,13 @@ class BookTasks:
             Generate a high-fidelity image prompt for the character: {character_data['name']}.
             
             Role: {character_data['role']}
+            Gender: {character_data.get('gender', 'unspecified')}
             Appearance: {character_data['appearance']}
             Personality: {character_data['personality']}
             
             CRITICAL REQUIREMENTS:
             1. The prompt must be LITERAL and PHOTOREALISTIC - describe the character as a REAL HUMAN BEING.
+            1b. Use the explicit Gender field as authoritative. Do NOT infer a different gender from style or vibes.
             2. Extract and list EXPLICITLY from Appearance:
                - Age and gender
                - Hair: color, length, style
@@ -439,7 +442,7 @@ class BookTasks:
             Elias Korran, mid-40s gaunt man with salt-and-pepper shoulder-length hair tied back, jagged scar from temple to cheekbone, deep-set hazel eyes, faded leather jacket over threadbare shirt, examining a photograph in a dimly lit darkroom, red safelight illuminating shelves of crime scene photos, developer trays on concrete floor, underground bunker atmosphere, cinematic lighting, photorealistic, 8k, highly detailed
             
             NEGATIVE PROMPT:
-            zombie, undead, demon, skeleton, horror creature, supernatural, glowing red eyes, glowing white eyes, glowing eyes, fangs, monster, female, woman, alien, fantasy creature, cartoon, anime, distorted, low quality, blurry
+            zombie, undead, demon, skeleton, horror creature, supernatural, glowing red eyes, glowing white eyes, glowing eyes, fangs, monster, alien, fantasy creature, cartoon, anime, distorted, low quality, blurry
             
             OUTPUT ONLY THE TWO SECTIONS. No explanations or commentary.
             """,

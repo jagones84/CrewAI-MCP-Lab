@@ -6,8 +6,8 @@
 # =============================================================================
 infrastructure:
   # SELECT ACTIVE PROVIDERS
-  # Options: "openrouter", "ollama", "llama_cp_local", "vllm", "llama_cp", "llama_cp_tunnel"
-  llm_selected: "ollama" 
+  # Options: "qwen_abliterated_dgx", "openrouter", "ollama", "llama_cp_local", "vllm", "llama_cp", "llama_cp_tunnel"
+  llm_selected: "qwen_abliterated_dgx"
   
   # Options: "remote_dgspark" (dgspark), "local_standard" (PC)
   image_selected: "local_standard" 
@@ -19,6 +19,14 @@ infrastructure:
       base_url: "https://openrouter.ai/api/v1"
       temperature: 0.7
       # api_key: "sk-or-..." # UNCOMMENT AND ADD YOUR KEY HERE
+
+    # 1b. DGX Spark llama.cpp via SSH tunnel (Default)
+    qwen_abliterated_dgx:
+      model: "qwen-3.6-35b-a3b-claude47-opus-abliterated"
+      base_url: "http://localhost:11003/v1"
+      temperature: 0.7
+      api_key: "EMPTY"
+      provider_kind: "llama_cpp_remote"
       
     # 2. Ollama (Local)
     ollama:

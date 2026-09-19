@@ -1,28 +1,37 @@
 import os
 from crewai import Agent, LLM
 
+
+STALE_OPENROUTER_MODELS = {
+    "google/gemini-2.0-flash-001": "google/gemini-2.5-flash-lite",
+}
+
+
 class YoutubeResearcherAgents:
     def __init__(self):
         # Debug API Key
         key = os.getenv("OPENAI_API_KEY")
         print(f"DEBUG: API Key loaded: {key[:5]}...{key[-5:] if key else 'None'}")
+        if key:
+            os.environ["OPENROUTER_API_KEY"] = key
         
         # Load model from environment or fallback
         model_name = os.getenv("OPENROUTER_MODEL", "google/gemini-2.0-flash-001")
+        model_name = STALE_OPENROUTER_MODELS.get(model_name, model_name)
         
         # Ensure correct prefix for OpenRouter via LiteLLM
-        if not (model_name.startswith("openai/") or model_name.startswith("openrouter/")):
-            # Default to openai/ prefix for OpenRouter compatibility in CrewAI
-            full_model_path = f"openai/{model_name}"
+        if not model_name.startswith("openrouter/"):
+            full_model_path = f"openrouter/{model_name}"
         else:
             full_model_path = model_name
 
         print(f"DEBUG: Using model: {full_model_path}")
+        if "OPENAI_API_BASE" in os.environ:
+            del os.environ["OPENAI_API_BASE"]
         
         self.llm = LLM(
             model=full_model_path, 
             api_key=os.getenv("OPENAI_API_KEY"),
-            base_url=os.getenv("OPENAI_API_BASE", "https://openrouter.ai/api/v1")
         )
 
     def researcher(self, tools):

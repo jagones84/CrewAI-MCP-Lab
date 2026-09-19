@@ -3,12 +3,15 @@ import sys
 import yaml
 from dotenv import load_dotenv
 from crewai import Crew, Process
+from crewai_tools import MCPServerAdapter
+from mcp import StdioServerParameters
 
 # Add repo root to path to import src.mcp_loader
 repo_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 sys.path.append(repo_root)
 # Add src to path for local imports
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+example_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Check if mcp_loader exists
 if not os.path.exists(os.path.join(repo_root, "src", "mcp_loader.py")):
@@ -22,6 +25,64 @@ from config.config import ConfigLoader
 from utils.logger import setup_logging
 from utils.comfy_check import check_comfyui_connection
 
+
+def get_env_file_path():
+    return os.path.join(repo_root, ".env")
+
+
+def get_config_path():
+    return os.path.join(example_root, "config", "preferences.yaml")
+
+
+def get_output_dir(preferences):
+    return os.path.join(example_root, preferences.get('outputs', {}).get('dir', 'outputs'))
+
+
+def get_image_output_path(preferences):
+    return os.path.join(get_output_dir(preferences), "generated_image.png")
+
+
+def get_comfy_endpoint(preferences):
+    comfy_config = preferences.get("comfyui", {})
+    host = comfy_config.get("host", "127.0.0.1")
+    port = int(comfy_config.get("port", 8188))
+    return host, port
+
+
+def get_mock_comfy_server_path():
+    return os.path.join(example_root, "TEST", "mock_comfy_server.py")
+
+
+def build_mock_comfy_adapter():
+    params = StdioServerParameters(
+        command=sys.executable,
+        args=[get_mock_comfy_server_path()],
+        env=os.environ.copy(),
+    )
+    return MCPServerAdapter(params)
+
+
+def select_comfy_server_name(preferences, comfy_reachable):
+    comfy_config = preferences.get('comfyui', {})
+    configured_server = comfy_config.get("mcp_server", "comfyui")
+    if comfy_reachable:
+        return configured_server
+    if comfy_config.get("allow_mock_fallback", False):
+        return "comfyui-mock"
+    return configured_server
+
+
+def persist_task_output(task, output_path):
+    task_output = getattr(task, "output", None)
+    raw_output = getattr(task_output, "raw", None) or ""
+    if not raw_output:
+        return
+
+    should_write = not os.path.exists(output_path) or os.path.getsize(output_path) == 0
+    if should_write:
+        with open(output_path, "w", encoding="utf-8", newline="\n") as handle:
+            handle.write(raw_output)
+
 def run():
     """
     Main entry point for Example 09: Marketing Strategy Campaign.
@@ -32,10 +93,10 @@ def run():
     logger.info("Starting Example 09: Marketing Strategy Campaign")
     
     # 2. Load env
-    load_dotenv(os.path.join(repo_root, ".env"), override=True)
+    load_dotenv(get_env_file_path(), override=True)
     
     # 3. Load Preferences
-    config_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "config", "preferences.yaml")
+    config_path = get_config_path()
     try:
         preferences = ConfigLoader.load_config(config_path)
         logger.info(f"Loaded preferences from {config_path}")
@@ -76,7 +137,7 @@ def run():
             logger.error(f"Error managing local LLM server: {e}")
             sys.exit(1)
 
-    output_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), preferences.get('outputs', {}).get('dir', 'outputs'))
+    output_dir = get_output_dir(preferences)
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
 
@@ -103,10 +164,10 @@ def run():
             logger.error(f"Error initializing ComfyController: {e}")
 
     # Pre-flight Check: ComfyUI
-    comfy_host = os.environ.get("COMFYUI_SERVER_ADDRESS", "127.0.0.1:8188").split(":")[0]
-    comfy_port = int(os.environ.get("COMFYUI_SERVER_ADDRESS", "127.0.0.1:8188").split(":")[1])
+    comfy_host, comfy_port = get_comfy_endpoint(preferences)
     
-    if check_comfyui_connection(comfy_host, comfy_port):
+    comfy_reachable = check_comfyui_connection(comfy_host, comfy_port)
+    if comfy_reachable:
         logger.info("✅ ComfyUI is reachable.")
     else:
         logger.warning("⚠️  ComfyUI is NOT reachable. Image generation task will likely fail.")
@@ -123,8 +184,13 @@ def run():
         ddg_tools = ddg_adapter.tools if hasattr(ddg_adapter, 'tools') else []
         logger.info(f"Loaded {len(ddg_tools)} search tools.")
 
-        # Load ComfyUI
-        comfy_adapter = loader.load_server("comfyui")
+        # Load ComfyUI or the bundled mock fallback when the endpoint is unavailable.
+        comfy_server_name = select_comfy_server_name(preferences, comfy_reachable)
+        if comfy_server_name == "comfyui-mock":
+            logger.warning("Using bundled mock ComfyUI MCP server because no live ComfyUI endpoint is reachable.")
+            comfy_adapter = build_mock_comfy_adapter()
+        else:
+            comfy_adapter = loader.load_server(comfy_server_name)
         comfy_tools = comfy_adapter.tools if hasattr(comfy_adapter, 'tools') else []
         logger.info(f"Loaded {len(comfy_tools)} image generation tools.")
         
@@ -152,10 +218,11 @@ def run():
     # Create Tasks
     research_output = os.path.join(output_dir, "research.md")
     strategy_output = os.path.join(output_dir, "strategy.md")
+    image_output = get_image_output_path(preferences)
     
     research_task = tasks_manager.research_product(researcher, product_description, output_file=research_output)
     strategy_task = tasks_manager.develop_strategy(strategist, [research_task], output_file=strategy_output)
-    image_task = tasks_manager.generate_campaign_image(designer, [strategy_task], output_dir)
+    image_task = tasks_manager.generate_campaign_image(designer, [strategy_task], image_output)
 
     # Create Crew
     crew = Crew(
@@ -167,6 +234,9 @@ def run():
 
     logger.info("Kickoff Crew...")
     result = crew.kickoff()
+
+    persist_task_output(research_task, research_output)
+    persist_task_output(strategy_task, strategy_output)
     
     logger.info("Crew Execution Completed")
     logger.info(f"Results saved in {output_dir}")

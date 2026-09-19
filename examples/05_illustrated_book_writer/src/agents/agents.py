@@ -2,6 +2,9 @@
 import os
 import sys
 import importlib.util
+import logging
+import time
+from typing import Any
 from crewai import Agent, LLM
 
 # Add repository root to path for src imports
@@ -29,6 +32,146 @@ else:
     MCPLoader = None
 
 
+def resolve_llm_model_name(model: str, base_url: str) -> str:
+    """Normalize model names for local OpenAI-compatible endpoints."""
+    effective_model = model
+    openai_compatible_hosts = ["localhost", "127.0.0.1", "10.0.0.1"]
+    is_local_openai = any(host in base_url for host in openai_compatible_hosts)
+    if is_local_openai and not model.startswith("openai/") and not model.startswith("ollama/"):
+        effective_model = f"openai/{model}"
+    return effective_model
+
+
+class DGXCompatibleLLM(LLM):
+    """Normalize CrewAI request params for the DGX llama.cpp OpenAI endpoint."""
+
+    SAFE_STOP_SENTINEL = "__BOOKWRITER_END__"
+    REACT_OBSERVATION_STOP = "\nObservation:"
+    DEFAULT_MAX_TOKENS = 4096
+
+    def _is_retryable_error(self, error: Exception) -> bool:
+        """Treat transient DGX transport and 400 failures as retryable."""
+        response = getattr(error, "response", None)
+        status_code = getattr(response, "status_code", None)
+        if status_code == 400:
+            return True
+        if status_code is not None and 500 <= status_code < 600:
+            return True
+
+        message = str(error)
+        if "Error code: 400" in message or "400 Bad Request" in message:
+            return True
+
+        error_type_name = type(error).__name__.lower()
+        message_lower = message.lower()
+        return (
+            isinstance(error, TimeoutError)
+            or "timeout" in error_type_name
+            or "timed out" in message_lower
+            or "timeout" in message_lower
+            or "connection error" in message_lower
+            or "connectionerror" in error_type_name
+            or "apiconnectionerror" in error_type_name
+            or "internalservererror" in error_type_name
+            or "remoteprotocolerror" in error_type_name
+        )
+
+    def _build_request_shape_summary(self, params: dict[str, Any]) -> dict[str, Any]:
+        messages = params.get("messages", [])
+        content_chars = 0
+        message_count = 0
+        for msg in messages:
+            if isinstance(msg, dict):
+                message_count += 1
+                content = msg.get("content", "")
+                if isinstance(content, str):
+                    content_chars += len(content)
+                elif isinstance(content, list):
+                    for part in content:
+                        if isinstance(part, dict) and isinstance(part.get("text"), str):
+                            content_chars += len(part["text"])
+
+        return {
+            "model": params.get("model"),
+            "message_count": message_count,
+            "content_chars": content_chars,
+            "max_tokens": params.get("max_tokens"),
+            "temperature": params.get("temperature"),
+            "has_tools": "tools" in params,
+            "tool_count": len(params.get("tools", [])) if isinstance(params.get("tools"), list) else 0,
+            "stop": params.get("stop"),
+        }
+
+    def _prepare_completion_params(
+        self,
+        messages: str | list[dict[str, Any]],
+        tools: list[dict[str, Any]] | None = None,
+    ) -> dict[str, Any]:
+        params = super()._prepare_completion_params(messages, tools=tools)
+
+        # llama.cpp is sensitive to empty tool arrays on some prompt shapes.
+        if not params.get("tools"):
+            params.pop("tools", None)
+
+        # CrewAI's ReAct stop marker is accepted inconsistently by llama.cpp when
+        # paired with the two-message system+user prompt shape. Replace it with a
+        # DGX-safe sentinel on this endpoint.
+        stop = params.get("stop")
+        if isinstance(stop, list) and any(
+            isinstance(item, str) and self.REACT_OBSERVATION_STOP in item for item in stop
+        ):
+            params["stop"] = [self.SAFE_STOP_SENTINEL]
+
+        # Force a stable explicit stop sequence for the DGX OpenAI-compatible path.
+        if "stop" not in params or not params["stop"]:
+            params["stop"] = [self.SAFE_STOP_SENTINEL]
+
+        # Avoid unbounded generations on llama.cpp, which can stall until the
+        # client-side timeout when max_tokens is omitted.
+        if not params.get("max_tokens"):
+            params["max_tokens"] = self.DEFAULT_MAX_TOKENS
+
+        logging.info("DGX request shape: %s", self._build_request_shape_summary(params))
+
+        return params
+
+    def call(
+        self,
+        messages: str | list[dict[str, Any]],
+        tools: list[dict[str, Any]] | None = None,
+        callbacks: list[Any] | None = None,
+        available_functions: dict[str, Any] | None = None,
+        from_task: Any | None = None,
+        from_agent: Any | None = None,
+        response_model: Any | None = None,
+    ) -> str | Any:
+        """Retry intermittent DGX 400s a small number of times before surfacing the failure."""
+        max_attempts = 3
+        for attempt in range(1, max_attempts + 1):
+            try:
+                return super().call(
+                    messages,
+                    tools=tools,
+                    callbacks=callbacks,
+                    available_functions=available_functions,
+                    from_task=from_task,
+                    from_agent=from_agent,
+                    response_model=response_model,
+                )
+            except Exception as error:
+                is_retryable = self._is_retryable_error(error)
+                if not is_retryable or attempt == max_attempts:
+                    raise
+
+                logging.warning(
+                    "Retrying transient DGX error (attempt %s/%s): %s",
+                    attempt + 1,
+                    max_attempts,
+                    error,
+                )
+                time.sleep(0.5 * attempt)
+
+
 class BookAgents:
     def __init__(self, config=None): # Accept config
         self.config = config or {}
@@ -50,18 +193,18 @@ class BookAgents:
         else:
             self.roles = {}
 
-        # Add provider prefix if using vLLM or Ollama
-        effective_model = model
-        is_local_openai = any(x in base_url for x in ["localhost", "127.0.0.1", "10.0.0.1"])
-        if is_local_openai and not model.startswith("openai/") and not model.startswith("ollama/"):
-            effective_model = f"openai/{model}"
+        effective_model = resolve_llm_model_name(model, base_url)
+        openai_compatible_hosts = ["localhost", "127.0.0.1", "10.0.0.1"]
+        is_local_openai = any(host in base_url for host in openai_compatible_hosts)
 
-        self._llm = LLM(
+        llm_cls = DGXCompatibleLLM if is_local_openai else LLM
+
+        self._llm = llm_cls(
             model=effective_model,
             api_key=os.getenv("OPENAI_API_KEY"),
             base_url=base_url,
             temperature=temp,
-            timeout=1200,
+            timeout=300,
             max_retries=5
         )
         

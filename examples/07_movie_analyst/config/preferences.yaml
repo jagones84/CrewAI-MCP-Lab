@@ -23,7 +23,7 @@ report_preferences:
 
 llm_config:
   # Select which profile to use: "ollama", "openai", "openrouter", etc.
-  selected: "ollama" 
+  selected: "openrouter"
   
   profiles:
     ollama:
@@ -37,7 +37,7 @@ llm_config:
       # api_key is read from .env (OPENAI_API_KEY)
 
     openrouter:
-      provider: "openai" # OpenRouter uses OpenAI-compatible API
-      model: "anthropic/claude-3.5-sonnet"
+      provider: "openrouter"
+      model: "google/gemini-2.5-flash-lite"
       base_url: "https://openrouter.ai/api/v1"
       # api_key is read from .env (OPENAI_API_KEY or OPENROUTER_API_KEY)

@@ -1,8 +1,10 @@
 
 llm:
   # Provider: openai, ollama, llamacpp, openrouter
-  provider: "openai"
-  
+  provider: "openrouter"
+  model: "google/gemini-2.5-flash-lite"
+  base_url: "https://openrouter.ai/api/v1"
+
   # OpenAI Configuration
   openai:
     model: "gpt-4o"
@@ -31,8 +33,10 @@ comfyui:
   # Usually better to point to the python executable and main.py
   # For now, let's assume standard install or portable.
   # install_path: "F:\\ComfyUI"
+  mcp_server: "comfyui-dgspark"
+  allow_mock_fallback: true
   host: "127.0.0.1"
-  port: 8188
+  port: 11002
 
 outputs:
   dir: "outputs"

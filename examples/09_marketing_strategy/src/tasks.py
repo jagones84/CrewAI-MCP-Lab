@@ -56,14 +56,14 @@ class MarketingTasks:
             output_file=output_file
         )
 
-    def generate_campaign_image(self, agent: Agent, context: list, output_dir: str) -> Task:
+    def generate_campaign_image(self, agent: Agent, context: list, output_path: str) -> Task:
         """
         Creates the image generation task.
         
         Args:
             agent (Agent): The Visual Designer agent.
             context (list): List of previous tasks (strategy) to use as context.
-            output_dir (str): Directory to save the generated image.
+            output_path (str): File path to save the generated image.
         """
         return Task(
             description=f"""
@@ -74,7 +74,7 @@ class MarketingTasks:
                 2. Create a high-quality prompt for the image generator.
                 3. Use the 'generate_image' tool to create the image.
                    - Workflow: 'default_workflow.json' (or 'image_perfectDeliberate_text_to_image_API.json' if better)
-                   - Output Path: '{output_dir}'
+                   - Output Path: '{output_path}'
                 
                 Ensure the prompt describes style, lighting, and mood.
             """,

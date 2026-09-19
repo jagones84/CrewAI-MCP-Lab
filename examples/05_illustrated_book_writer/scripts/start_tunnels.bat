@@ -1,21 +1,18 @@
 @echo off
-echo Opening tunnels for ComfyUI and Ollama to Remote GPU Server...
+echo Opening DGX Spark tunnels for example 05...
 
-:: Configuration - EDIT THESE
-set REMOTE_USER=username
-set REMOTE_HOST=remote_ip_or_hostname
+:: Configuration
+set REMOTE_USER=jagones
+set REMOTE_HOST=DGX-SPARK-ETH
 
-:: Tunnel for ComfyUI (Local 11002 -> Remote 8188)
-:: NOTE: This maps local port 11002 to the remote port 8188 (ComfyUI default)
+:: Default example-05 LLM path: local 11003 -> remote 8092 (DGX llama.cpp / Qwen 3.6 Opus Abliterated)
+start /b ssh -L 11003:localhost:8092 %REMOTE_USER%@%REMOTE_HOST% -N
+
+:: Default example-05 image path: local 11002 -> remote 8188 (ComfyUI)
 start /b ssh -L 11002:localhost:8188 %REMOTE_USER%@%REMOTE_HOST% -N
 
-:: Tunnel for Ollama (Local 11435 -> Remote 11434)
-:: NOTE: This maps local port 11435 to remote port 11434 (Ollama default)
+:: Optional fallback tunnel: local 11435 -> remote 11434 (Ollama)
 start /b ssh -L 11435:localhost:11434 %REMOTE_USER%@%REMOTE_HOST% -N
 
-:: Tunnel for llamacp (Local 11003 -> Remote 11005)
-:: NOTE: This maps local port 11003 to remote port 11005 (where llama-server is running)
-start /b ssh -L 11003:localhost:11005 %REMOTE_USER%@%REMOTE_HOST% -N
-
-echo Tunnels active! You can start the application now.
+echo DGX tunnels active. Run python scripts\test_dgx_llm_tunnel.py before python src\main.py
 pause

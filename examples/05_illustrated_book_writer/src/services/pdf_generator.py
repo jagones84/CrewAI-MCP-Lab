@@ -10,6 +10,7 @@ except ImportError:
 def clean_text(text: str) -> str:
     """Cleans text artifacts from LLM output."""
     if not text: return ""
+    text = re.sub(r'(?is)<think>.*?</think>\s*', '', text)
     text = re.sub(r'(?i)\*\*Final Answer\*\*:', '', text)
     text = re.sub(r'(?i)Final Answer:', '', text)
     text = re.sub(r'(?i)\*\*Final Scene Text.*?\*\*:', '', text)

@@ -1,0 +1,9 @@
+crewai[tools]>=0.100.0
+pydantic>=2.0.0
+python-dotenv
+mcp
+fastmcp
+pytest
+# For local LLMs
+langchain_openai
+langchain_community

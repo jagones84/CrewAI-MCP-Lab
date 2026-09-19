@@ -234,3 +234,270 @@ LiteLLM completion() model= gpt-4o; provider = openrouter
 2026-02-10 18:56:56,075 - MarketingCrew - INFO - Crew Execution Completed
 2026-02-10 18:56:56,076 - MarketingCrew - INFO - Results saved in F:\REPOSITORIES\Crewai-mcp-lab\examples\09_marketing_strategy\outputs
 2026-02-10 18:57:01,761 - crewai.cli.config - INFO - Using config path: C:\Users\giova\.config\crewai\settings.json
+2026-08-05 22:51:01,636 - MarketingCrew - INFO - Starting Example 09: Marketing Strategy Campaign
+2026-08-05 22:51:01,639 - MarketingCrew - INFO - Loaded preferences from F:\REPOSITORIES\Crewai-mcp-lab\examples\09_marketing_strategy\config\preferences.yaml
+2026-08-05 22:51:04,646 - MarketingCrew - WARNING - ⚠️  ComfyUI is NOT reachable. Image generation task will likely fail.
+2026-08-05 22:51:04,647 - MarketingCrew - WARNING - Please ensure ComfyUI is running at 127.0.0.1:8188
+2026-08-05 22:51:04,647 - MarketingCrew - INFO - Loading MCP Tools...
+2026-08-05 22:51:06,574 - MarketingCrew - INFO - Loaded 2 search tools.
+2026-08-05 22:51:08,123 - MarketingCrew - INFO - Loaded 2 image generation tools.
+2026-08-05 22:51:08,124 - MarketingCrew - INFO - Target Product: A smart coffee mug that keeps coffee at the perfect temperature and tracks caffeine intake via an app.
+2026-08-05 22:51:08,129 - MarketingCrew - INFO - Kickoff Crew...
+2026-08-05 22:51:09,044 - LiteLLM - INFO - 
+LiteLLM completion() model= gpt-4o; provider = openrouter
+2026-08-05 22:51:11,629 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-08-05 22:51:12,893 - LiteLLM - INFO - 
+LiteLLM completion() model= gpt-4o; provider = openrouter
+2026-08-05 22:51:14,554 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-08-05 22:51:15,865 - LiteLLM - INFO - 
+LiteLLM completion() model= gpt-4o; provider = openrouter
+2026-08-05 22:51:17,161 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-08-05 22:51:18,626 - LiteLLM - INFO - 
+LiteLLM completion() model= gpt-4o; provider = openrouter
+2026-08-05 22:51:20,148 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-08-05 22:51:21,296 - LiteLLM - INFO - 
+LiteLLM completion() model= gpt-4o; provider = openrouter
+2026-08-05 22:51:22,643 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-08-05 22:51:23,631 - LiteLLM - INFO - 
+LiteLLM completion() model= gpt-4o; provider = openrouter
+2026-08-05 22:51:25,104 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-08-05 22:51:26,228 - LiteLLM - INFO - 
+LiteLLM completion() model= gpt-4o; provider = openrouter
+2026-08-05 22:51:27,745 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-08-05 22:51:29,368 - LiteLLM - INFO - 
+LiteLLM completion() model= gpt-4o; provider = openrouter
+2026-08-05 22:51:40,159 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-08-05 22:51:40,177 - LiteLLM - INFO - 
+LiteLLM completion() model= gpt-4o; provider = openrouter
+2026-08-05 22:51:45,068 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-08-05 22:51:45,088 - LiteLLM - INFO - 
+LiteLLM completion() model= gpt-4o; provider = openrouter
+2026-08-05 22:51:46,516 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-08-05 22:51:46,532 - LiteLLM - INFO - 
+LiteLLM completion() model= gpt-4o; provider = openrouter
+2026-08-05 22:51:49,182 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-08-05 22:51:51,254 - LiteLLM - INFO - 
+LiteLLM completion() model= gpt-4o; provider = openrouter
+2026-08-05 22:51:52,956 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-08-05 22:51:52,966 - MarketingCrew - INFO - Crew Execution Completed
+2026-08-05 22:51:52,968 - MarketingCrew - INFO - Results saved in F:\REPOSITORIES\Crewai-mcp-lab\examples\09_marketing_strategy\outputs
+2026-08-05 22:55:03,316 - MarketingCrew - INFO - Starting Example 09: Marketing Strategy Campaign
+2026-08-05 22:55:03,319 - MarketingCrew - INFO - Loaded preferences from F:\REPOSITORIES\Crewai-mcp-lab\examples\09_marketing_strategy\config\preferences.yaml
+2026-08-05 22:55:06,343 - MarketingCrew - WARNING - ⚠️  ComfyUI is NOT reachable. Image generation task will likely fail.
+2026-08-05 22:55:06,343 - MarketingCrew - WARNING - Please ensure ComfyUI is running at 127.0.0.1:8188
+2026-08-05 22:55:06,343 - MarketingCrew - INFO - Loading MCP Tools...
+2026-08-05 22:55:07,951 - MarketingCrew - INFO - Loaded 2 search tools.
+2026-08-05 22:55:07,952 - MarketingCrew - WARNING - Using bundled mock ComfyUI MCP server because no live ComfyUI endpoint is reachable.
+2026-08-05 22:55:09,075 - MarketingCrew - INFO - Loaded 2 image generation tools.
+2026-08-05 22:55:09,075 - MarketingCrew - INFO - Target Product: A smart coffee mug that keeps coffee at the perfect temperature and tracks caffeine intake via an app.
+2026-08-05 22:55:09,078 - MarketingCrew - INFO - Kickoff Crew...
+2026-08-05 22:55:09,959 - LiteLLM - INFO - 
+LiteLLM completion() model= google/gemini-2.5-flash-lite; provider = openrouter
+2026-08-05 22:55:12,538 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-08-05 22:55:13,856 - LiteLLM - INFO - 
+LiteLLM completion() model= google/gemini-2.5-flash-lite; provider = openrouter
+2026-08-05 22:55:16,380 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-08-05 22:55:17,719 - LiteLLM - INFO - 
+LiteLLM completion() model= google/gemini-2.5-flash-lite; provider = openrouter
+2026-08-05 22:55:19,527 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-08-05 22:55:19,536 - LiteLLM - INFO - 
+LiteLLM completion() model= google/gemini-2.5-flash-lite; provider = openrouter
+2026-08-05 22:55:21,414 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-08-05 22:55:22,880 - LiteLLM - INFO - 
+LiteLLM completion() model= google/gemini-2.5-flash-lite; provider = openrouter
+2026-08-05 22:55:32,454 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-08-05 22:55:32,479 - LiteLLM - INFO - 
+LiteLLM completion() model= google/gemini-2.5-flash-lite; provider = openrouter
+2026-08-05 22:55:40,156 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-08-05 22:55:40,185 - LiteLLM - INFO - 
+LiteLLM completion() model= google/gemini-2.5-flash-lite; provider = openrouter
+2026-08-05 22:55:44,976 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-08-05 22:55:44,993 - LiteLLM - INFO - 
+LiteLLM completion() model= google/gemini-2.5-flash-lite; provider = openrouter
+2026-08-05 22:55:47,926 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-08-05 22:55:47,939 - MarketingCrew - INFO - Crew Execution Completed
+2026-08-05 22:55:47,943 - MarketingCrew - INFO - Results saved in F:\REPOSITORIES\Crewai-mcp-lab\examples\09_marketing_strategy\outputs
+2026-08-05 22:55:51,459 - crewai.cli.config - INFO - Using config path: C:\Users\giova\.config\crewai\settings.json
+2026-08-05 23:00:01,341 - MarketingCrew - INFO - Starting Example 09: Marketing Strategy Campaign
+2026-08-05 23:00:01,344 - MarketingCrew - INFO - Loaded preferences from F:\REPOSITORIES\Crewai-mcp-lab\examples\09_marketing_strategy\config\preferences.yaml
+2026-08-05 23:00:04,370 - MarketingCrew - WARNING - ⚠️  ComfyUI is NOT reachable. Image generation task will likely fail.
+2026-08-05 23:00:04,370 - MarketingCrew - WARNING - Please ensure ComfyUI is running at 127.0.0.1:8188
+2026-08-05 23:00:04,370 - MarketingCrew - INFO - Loading MCP Tools...
+2026-08-05 23:00:05,994 - MarketingCrew - INFO - Loaded 2 search tools.
+2026-08-05 23:00:05,994 - MarketingCrew - WARNING - Using bundled mock ComfyUI MCP server because no live ComfyUI endpoint is reachable.
+2026-08-05 23:00:07,106 - MarketingCrew - INFO - Loaded 2 image generation tools.
+2026-08-05 23:00:07,106 - MarketingCrew - INFO - Target Product: A smart coffee mug that keeps coffee at the perfect temperature and tracks caffeine intake via an app.
+2026-08-05 23:00:07,110 - MarketingCrew - INFO - Kickoff Crew...
+2026-08-05 23:00:08,027 - LiteLLM - INFO - 
+LiteLLM completion() model= google/gemini-2.5-flash-lite; provider = openrouter
+2026-08-05 23:00:09,326 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-08-05 23:00:10,920 - LiteLLM - INFO - 
+LiteLLM completion() model= google/gemini-2.5-flash-lite; provider = openrouter
+2026-08-05 23:00:11,785 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-08-05 23:00:13,050 - LiteLLM - INFO - 
+LiteLLM completion() model= google/gemini-2.5-flash-lite; provider = openrouter
+2026-08-05 23:00:14,136 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-08-05 23:00:15,554 - LiteLLM - INFO - 
+LiteLLM completion() model= google/gemini-2.5-flash-lite; provider = openrouter
+2026-08-05 23:00:16,617 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-08-05 23:00:17,830 - LiteLLM - INFO - 
+LiteLLM completion() model= google/gemini-2.5-flash-lite; provider = openrouter
+2026-08-05 23:00:19,103 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-08-05 23:00:20,417 - LiteLLM - INFO - 
+LiteLLM completion() model= google/gemini-2.5-flash-lite; provider = openrouter
+2026-08-05 23:00:20,955 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-08-05 23:00:20,968 - LiteLLM - INFO - 
+LiteLLM completion() model= google/gemini-2.5-flash-lite; provider = openrouter
+2026-08-05 23:00:28,570 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-08-05 23:00:28,599 - LiteLLM - INFO - 
+LiteLLM completion() model= google/gemini-2.5-flash-lite; provider = openrouter
+2026-08-05 23:00:30,824 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-08-05 23:00:30,840 - LiteLLM - INFO - 
+LiteLLM completion() model= google/gemini-2.5-flash-lite; provider = openrouter
+2026-08-05 23:00:38,674 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-08-05 23:00:38,687 - MarketingCrew - INFO - Crew Execution Completed
+2026-08-05 23:00:38,693 - MarketingCrew - INFO - Results saved in F:\REPOSITORIES\Crewai-mcp-lab\examples\09_marketing_strategy\outputs
+2026-08-05 23:00:42,448 - crewai.cli.config - INFO - Using config path: C:\Users\giova\.config\crewai\settings.json
+2026-08-05 23:05:08,010 - MarketingCrew - INFO - Starting Example 09: Marketing Strategy Campaign
+2026-08-05 23:05:08,013 - MarketingCrew - INFO - Loaded preferences from F:\REPOSITORIES\Crewai-mcp-lab\examples\09_marketing_strategy\config\preferences.yaml
+2026-08-05 23:05:11,030 - MarketingCrew - WARNING - ⚠️  ComfyUI is NOT reachable. Image generation task will likely fail.
+2026-08-05 23:05:11,031 - MarketingCrew - WARNING - Please ensure ComfyUI is running at 127.0.0.1:8188
+2026-08-05 23:05:11,031 - MarketingCrew - INFO - Loading MCP Tools...
+2026-08-05 23:05:12,730 - MarketingCrew - INFO - Loaded 2 search tools.
+2026-08-05 23:05:12,730 - MarketingCrew - WARNING - Using bundled mock ComfyUI MCP server because no live ComfyUI endpoint is reachable.
+2026-08-05 23:05:13,854 - MarketingCrew - INFO - Loaded 2 image generation tools.
+2026-08-05 23:05:13,855 - MarketingCrew - INFO - Target Product: A smart coffee mug that keeps coffee at the perfect temperature and tracks caffeine intake via an app.
+2026-08-05 23:05:13,859 - MarketingCrew - INFO - Kickoff Crew...
+2026-08-05 23:05:14,892 - LiteLLM - INFO - 
+LiteLLM completion() model= google/gemini-2.5-flash-lite; provider = openrouter
+2026-08-05 23:05:16,297 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-08-05 23:05:17,897 - LiteLLM - INFO - 
+LiteLLM completion() model= google/gemini-2.5-flash-lite; provider = openrouter
+2026-08-05 23:05:18,905 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-08-05 23:05:20,473 - LiteLLM - INFO - 
+LiteLLM completion() model= google/gemini-2.5-flash-lite; provider = openrouter
+2026-08-05 23:05:21,379 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-08-05 23:05:22,727 - LiteLLM - INFO - 
+LiteLLM completion() model= google/gemini-2.5-flash-lite; provider = openrouter
+2026-08-05 23:05:24,057 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-08-05 23:05:25,397 - LiteLLM - INFO - 
+LiteLLM completion() model= google/gemini-2.5-flash-lite; provider = openrouter
+2026-08-05 23:05:26,367 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-08-05 23:05:27,617 - LiteLLM - INFO - 
+LiteLLM completion() model= google/gemini-2.5-flash-lite; provider = openrouter
+2026-08-05 23:05:29,272 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-08-05 23:05:30,627 - LiteLLM - INFO - 
+LiteLLM completion() model= google/gemini-2.5-flash-lite; provider = openrouter
+2026-08-05 23:05:31,724 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-08-05 23:05:33,097 - LiteLLM - INFO - 
+LiteLLM completion() model= google/gemini-2.5-flash-lite; provider = openrouter
+2026-08-05 23:05:42,688 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-08-05 23:05:42,723 - LiteLLM - INFO - 
+LiteLLM completion() model= google/gemini-2.5-flash-lite; provider = openrouter
+2026-08-05 23:05:50,571 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-08-05 23:05:50,617 - LiteLLM - INFO - 
+LiteLLM completion() model= google/gemini-2.5-flash-lite; provider = openrouter
+2026-08-05 23:05:54,224 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-08-05 23:05:54,244 - LiteLLM - INFO - 
+LiteLLM completion() model= google/gemini-2.5-flash-lite; provider = openrouter
+2026-08-05 23:05:56,657 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-08-05 23:05:56,679 - MarketingCrew - INFO - Crew Execution Completed
+2026-08-05 23:05:56,679 - MarketingCrew - INFO - Results saved in F:\REPOSITORIES\Crewai-mcp-lab\examples\09_marketing_strategy\outputs
+2026-08-05 23:06:00,721 - crewai.cli.config - INFO - Using config path: C:\Users\giova\.config\crewai\settings.json
+2026-08-05 23:09:42,077 - MarketingCrew - INFO - Starting Example 09: Marketing Strategy Campaign
+2026-08-05 23:09:42,081 - MarketingCrew - INFO - Loaded preferences from F:\REPOSITORIES\Crewai-mcp-lab\examples\09_marketing_strategy\config\preferences.yaml
+2026-08-05 23:09:42,100 - MarketingCrew - INFO - ✅ ComfyUI is reachable.
+2026-08-05 23:09:42,100 - MarketingCrew - INFO - Loading MCP Tools...
+2026-08-05 23:09:43,770 - MarketingCrew - INFO - Loaded 2 search tools.
+2026-08-05 23:09:44,859 - MarketingCrew - INFO - Loaded 2 image generation tools.
+2026-08-05 23:09:44,860 - MarketingCrew - INFO - Target Product: A smart coffee mug that keeps coffee at the perfect temperature and tracks caffeine intake via an app.
+2026-08-05 23:09:44,864 - MarketingCrew - INFO - Kickoff Crew...
+2026-08-05 23:09:45,811 - LiteLLM - INFO - 
+LiteLLM completion() model= google/gemini-2.5-flash-lite; provider = openrouter
+2026-08-05 23:09:48,563 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-08-05 23:09:49,867 - LiteLLM - INFO - 
+LiteLLM completion() model= google/gemini-2.5-flash-lite; provider = openrouter
+2026-08-05 23:09:50,665 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-08-05 23:09:52,200 - LiteLLM - INFO - 
+LiteLLM completion() model= google/gemini-2.5-flash-lite; provider = openrouter
+2026-08-05 23:09:53,317 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-08-05 23:09:54,631 - LiteLLM - INFO - 
+LiteLLM completion() model= google/gemini-2.5-flash-lite; provider = openrouter
+2026-08-05 23:09:55,447 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-08-05 23:09:57,046 - LiteLLM - INFO - 
+LiteLLM completion() model= google/gemini-2.5-flash-lite; provider = openrouter
+2026-08-05 23:09:57,803 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-08-05 23:09:58,943 - LiteLLM - INFO - 
+LiteLLM completion() model= google/gemini-2.5-flash-lite; provider = openrouter
+2026-08-05 23:10:00,094 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-08-05 23:10:01,244 - LiteLLM - INFO - 
+LiteLLM completion() model= google/gemini-2.5-flash-lite; provider = openrouter
+2026-08-05 23:10:02,124 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-08-05 23:10:03,580 - LiteLLM - INFO - 
+LiteLLM completion() model= google/gemini-2.5-flash-lite; provider = openrouter
+2026-08-05 23:10:04,486 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-08-05 23:10:05,656 - LiteLLM - INFO - 
+LiteLLM completion() model= google/gemini-2.5-flash-lite; provider = openrouter
+2026-08-05 23:10:07,248 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-08-05 23:10:08,333 - LiteLLM - INFO - 
+LiteLLM completion() model= google/gemini-2.5-flash-lite; provider = openrouter
+2026-08-05 23:10:09,365 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-08-05 23:10:10,747 - LiteLLM - INFO - 
+LiteLLM completion() model= google/gemini-2.5-flash-lite; provider = openrouter
+2026-08-05 23:10:16,470 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-08-05 23:10:16,497 - LiteLLM - INFO - 
+LiteLLM completion() model= google/gemini-2.5-flash-lite; provider = openrouter
+2026-08-05 23:10:23,443 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-08-05 23:10:23,471 - LiteLLM - INFO - 
+LiteLLM completion() model= google/gemini-2.5-flash-lite; provider = openrouter
+2026-08-05 23:10:26,670 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-08-05 23:10:26,829 - LiteLLM - INFO - 
+LiteLLM completion() model= google/gemini-2.5-flash-lite; provider = openrouter
+2026-08-05 23:10:28,889 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-08-05 23:10:28,900 - LiteLLM - INFO - 
+LiteLLM completion() model= google/gemini-2.5-flash-lite; provider = openrouter
+2026-08-05 23:10:30,664 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-08-05 23:11:21,967 - LiteLLM - INFO - 
+LiteLLM completion() model= google/gemini-2.5-flash-lite; provider = openrouter
+2026-08-05 23:11:25,088 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-08-05 23:11:25,111 - MarketingCrew - INFO - Crew Execution Completed
+2026-08-05 23:11:25,111 - MarketingCrew - INFO - Results saved in F:\REPOSITORIES\Crewai-mcp-lab\examples\09_marketing_strategy\outputs
+2026-08-05 23:11:30,177 - crewai.cli.config - INFO - Using config path: C:\Users\giova\.config\crewai\settings.json
+2026-08-05 23:14:10,989 - MarketingCrew - INFO - Starting Example 09: Marketing Strategy Campaign
+2026-08-05 23:14:10,992 - MarketingCrew - INFO - Loaded preferences from F:\REPOSITORIES\Crewai-mcp-lab\examples\09_marketing_strategy\config\preferences.yaml
+2026-08-05 23:14:11,019 - MarketingCrew - INFO - ✅ ComfyUI is reachable.
+2026-08-05 23:14:11,020 - MarketingCrew - INFO - Loading MCP Tools...
+2026-08-05 23:14:12,804 - MarketingCrew - INFO - Loaded 2 search tools.
+2026-08-05 23:14:13,854 - MarketingCrew - INFO - Loaded 2 image generation tools.
+2026-08-05 23:14:13,854 - MarketingCrew - INFO - Target Product: A smart coffee mug that keeps coffee at the perfect temperature and tracks caffeine intake via an app.
+2026-08-05 23:14:13,857 - MarketingCrew - INFO - Kickoff Crew...
+2026-08-05 23:14:14,742 - LiteLLM - INFO - 
+LiteLLM completion() model= google/gemini-2.5-flash-lite; provider = openrouter
+2026-08-05 23:14:16,188 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-08-05 23:14:17,667 - LiteLLM - INFO - 
+LiteLLM completion() model= google/gemini-2.5-flash-lite; provider = openrouter
+2026-08-05 23:14:18,707 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-08-05 23:14:19,862 - LiteLLM - INFO - 
+LiteLLM completion() model= google/gemini-2.5-flash-lite; provider = openrouter
+2026-08-05 23:14:20,696 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-08-05 23:14:22,089 - LiteLLM - INFO - 
+LiteLLM completion() model= google/gemini-2.5-flash-lite; provider = openrouter
+2026-08-05 23:14:23,059 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-08-05 23:14:24,150 - LiteLLM - INFO - 
+LiteLLM completion() model= google/gemini-2.5-flash-lite; provider = openrouter
+2026-08-05 23:14:32,755 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-08-05 23:14:32,779 - LiteLLM - INFO - 
+LiteLLM completion() model= google/gemini-2.5-flash-lite; provider = openrouter
+2026-08-05 23:14:41,190 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-08-05 23:14:41,224 - LiteLLM - INFO - 
+LiteLLM completion() model= google/gemini-2.5-flash-lite; provider = openrouter
+2026-08-05 23:14:42,181 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-08-05 23:14:42,198 - LiteLLM - INFO - 
+LiteLLM completion() model= google/gemini-2.5-flash-lite; provider = openrouter
+2026-08-05 23:14:44,133 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-08-05 23:14:57,102 - LiteLLM - INFO - 
+LiteLLM completion() model= google/gemini-2.5-flash-lite; provider = openrouter
+2026-08-05 23:14:58,631 - LiteLLM - INFO - Wrapper: Completed Call, calling success_handler
+2026-08-05 23:14:58,652 - MarketingCrew - INFO - Crew Execution Completed
+2026-08-05 23:14:58,652 - MarketingCrew - INFO - Results saved in F:\REPOSITORIES\Crewai-mcp-lab\examples\09_marketing_strategy\outputs
+2026-08-05 23:15:02,563 - crewai.cli.config - INFO - Using config path: C:\Users\giova\.config\crewai\settings.json

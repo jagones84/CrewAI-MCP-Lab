@@ -1,0 +1,35 @@
+llm:
+  # Provider: openai, ollama, llamacpp, openrouter
+  provider: "openrouter"
+  
+  # OpenAI Configuration
+  openai:
+    model: "gpt-4o"
+    # api_key: "sk-..." # Set via env var OPENAI_API_KEY
+
+  # Ollama Configuration
+  ollama:
+    model: "mistral"
+    # base_url: "http://localhost:11434"
+    # executable_path: "path/to/ollama"
+
+  # OpenRouter Configuration
+  openrouter:
+    model: "google/gemini-2.5-flash-lite"
+    site_url: "https://crewai.com"
+    app_name: "CrewAI Examples"
+
+  # Manager LLM (for Hierarchical Process)
+  manager:
+    provider: "openrouter"
+    model: "google/gemini-2.5-flash-lite"
+
+agency:
+  # Path to the "Corporate Memory" SQLite DB
+  memory_db_path: "outputs/agency_memory.db"
+  
+  # Path where the agency creates projects
+  workspace_root: "outputs/workspace"
+
+outputs:
+  dir: "outputs"

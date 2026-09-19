@@ -1,0 +1,18 @@
+llm:
+  provider: "openrouter"
+  model: "google/gemini-2.5-flash-lite"
+  temperature: 0.1
+
+manager_llm:
+  provider: "openrouter"
+  model: "google/gemini-2.5-flash-lite"
+  temperature: 0.1
+
+memory:
+  enabled: true
+  storage_path: "outputs/memory_store"
+
+mcp:
+  persistent_memory:
+    command: "python"
+    args: ["mcp_servers/persistent_memory/server.py"]

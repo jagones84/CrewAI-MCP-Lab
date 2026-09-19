@@ -1,0 +1,7 @@
+crewai
+crewai-tools
+mcp
+pydantic
+pyyaml
+requests
+python-dotenv

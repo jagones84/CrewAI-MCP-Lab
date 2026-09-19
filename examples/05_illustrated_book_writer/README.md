@@ -12,83 +12,66 @@ This project uses a crew of AI agents (Architect, Writer, Editor, Illustrator) t
 
 ## 🛠️ Infrastructure Setup
 
-This project is designed to run on a local PC while offloading heavy computation (LLM & Image Generation) to a remote GPU server.
+This example is designed to run on a local PC while offloading heavy computation to a DGX Spark host or another supported LLM provider.
 
-### 1. Connection Scripts
-Use the scripts in the `scripts/` directory as templates to establish the necessary tunnels and servers.
+### DGX Spark Default Setup
 
-**On Local PC (Windows):**
-Run `scripts\start_tunnels.bat` (after editing your remote IP/username) to open SSH tunnels to your remote machine.
+Example 05 now defaults to a DGX Spark-hosted `llama.cpp` model exposed through an SSH tunnel.
+The remote DGX server must already be running the expected model before you start the local app.
+
+1. Run `scripts\start_tunnels.bat`
+2. Run `python scripts\test_dgx_llm_tunnel.py`
+3. Run `python src/main.py`
+
+The default LLM profile is `qwen_abliterated_dgx`, currently mapped to the live DGX model alias `qwen-3.6-35b-a3b-claude47-opus-abliterated`.
 
 **On Remote Machine (Linux):**
-Run `scripts/start_llama_server.sh` to start the Llama.cpp server (optimized for high-end GPUs).
+Run `scripts/start_llama_server.sh` to start the remote `llama.cpp` server if it is not already running.
 
-### 2. OpenRouter Setup (Recommended for Cloud)
-If you prefer to use high-quality cloud models (like GPT-4, Claude 3, or Llama 3 70B) via OpenRouter:
+### Other LLM Options
 
-1.  **Get API Key**: Sign up at [OpenRouter.ai](https://openrouter.ai/) and get an API key.
-2.  **Configure `config.yaml`**:
-    *   Set `llm_selected: "openrouter"`.
-    *   Update the `openrouter` profile:
-        ```yaml
-        openrouter:
-          model: "openai/gpt-4o-mini" # Or "anthropic/claude-3-opus", etc.
-          base_url: "https://openrouter.ai/api/v1"
-          # api_key: "sk-or-..." # Set in environment or config
-        ```
+The DGX path is the default, but the example still supports these providers:
 
-### 3. Local Llama.cpp Setup (Optional)
-If you prefer to run the LLM locally on your Windows machine with full automation:
+- `llama_cp_local`: local auto-managed `llama.cpp`
+- `ollama`: local auto-managed Ollama
+- `openrouter`: cloud OpenRouter
+- `llama_cp`: generic external OpenAI-compatible `llama.cpp`
 
-1.  **Download Llama.cpp**:
-    *   Get the latest release (e.g., `llama-bxxxx-bin-win-avx2-x64.zip`) from the [Official Llama.cpp Repository](https://github.com/ggerganov/llama.cpp/releases).
-    *   Extract it to a folder (e.g., `F:\PROGRAMS\llama_cp`).
+### Provider Notes
 
-2.  **Download Models**:
-    *   Download GGUF models (e.g., from HuggingFace).
-    *   Place them in a dedicated folder (e.g., `F:\PROGRAMS\llama_cp\MODELS`).
+#### OpenRouter Setup
+If you prefer to use a cloud model through OpenRouter:
 
-3.  **Configure `config.yaml`**:
-    *   Set `llm_selected: "llama_cp_local"`.
-    *   Update the `llama_cp_local` profile with your paths:
-        ```yaml
-        llama_cp_local:
-          model: "Cydonia-24B-v4j-Q4_K_M.gguf"
-          executable_path: "F:\\PROGRAMS\\llama_cp\\llama-server.exe"
-          models_dir: "F:\\PROGRAMS\\llama_cp\\MODELS"
-        ```
-    *   The application will now **automatically** start/stop the server and load the correct model when you run `src/main.py`.
+1. Get an API key from [OpenRouter.ai](https://openrouter.ai/).
+2. Set `llm_selected: "openrouter"` in `config/config.yaml`.
+3. Update the `openrouter` profile with your preferred model and API key source.
 
-### 4. Local Ollama Setup (Optional)
-If you prefer to run the LLM locally using Ollama with full automation:
+#### Local Llama.cpp Setup
+If you prefer to run the LLM locally on Windows with full automation:
 
-1.  **Install Ollama**:
-    *   Download and install from the [Official Ollama Website](https://ollama.com/download).
-    *   Ensure `ollama` is in your system PATH or note the installation path (usually `C:\Users\%USERNAME%\AppData\Local\Programs\Ollama\ollama.exe`).
+1. Download the latest release from the [Official Llama.cpp Repository](https://github.com/ggerganov/llama.cpp/releases).
+2. Download one or more GGUF models and store them in your local models directory.
+3. Set `llm_selected: "llama_cp_local"` and update the `llama_cp_local` profile paths in `config/config.yaml`.
 
-2.  **Pull Models**:
-    *   Run `ollama pull llama3` (or any other model) in your terminal.
-    *   Or let the application pull it automatically (first run might be slower).
+#### Local Ollama Setup
+If you prefer to run the LLM locally with Ollama:
 
-3.  **Configure `config.yaml`**:
-    *   Set `llm_selected: "ollama"`.
-    *   Update the `ollama` profile:
-        ```yaml
-        ollama:
-          model: "llama3"
-          executable_path: "C:\\Users\\%USERNAME%\\AppData\\Local\\Programs\\Ollama\\ollama.exe"
-        ```
-    *   The application will **automatically** start Ollama (if not running), kill conflicting Llama.cpp servers, and ensure the model is loaded.
+1. Install Ollama from the [Official Ollama Website](https://ollama.com/download).
+2. Pull the model you want to use, for example `ollama pull llama3`.
+3. Set `llm_selected: "ollama"` and update the `ollama` profile in `config/config.yaml`.
 
-### 5. Configuration
+### Configuration
 Edit `config/config.yaml`. You can copy `config/config.template.yaml` to `config/config.yaml` to get started.
 
 ```yaml
 infrastructure:
-  llm_selected: "ollama" # Options: "llama_cp_local", "ollama", "openrouter", etc.
+  llm_selected: "qwen_abliterated_dgx" # Options: "qwen_abliterated_dgx", "llama_cp_local", "ollama", "openrouter", etc.
   image_selected: "remote_dgspark"
 
   llm_profiles:
+    qwen_abliterated_dgx:
+      model: "qwen-3.6-35b-a3b-claude47-opus-abliterated"
+      base_url: "http://localhost:11003/v1"
     llama_cp_tunnel:
       base_url: "http://localhost:11003/v1" # Example tunnelled port
     llama_cp:
@@ -96,15 +79,15 @@ infrastructure:
        base_url: "http://localhost:1234/v1"
 ```
 
-### 6. Port Mapping Examples
+### Port Mapping Examples
 
 *Note: These are example mappings used in the provided scripts.*
 
 | Service | Local Port | Remote Port | Description |
 | :--- | :--- | :--- | :--- |
-| ComfyUI | 11002 | 8188 | Image Generation Backend |
-| Llama CP | 11003 | 11005 | Custom Llama Server |
-| Ollama | 11435 | 11434 | Ollama API |
+| ComfyUI | 11002 | 8188 | Default DGX image generation path |
+| DGX `llama.cpp` | 11003 | 8092 | Default example 05 LLM path |
+| Ollama | 11435 | 11434 | Optional fallback API tunnel |
 
 ## 📦 Installation
 

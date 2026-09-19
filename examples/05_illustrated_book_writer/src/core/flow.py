@@ -12,6 +12,15 @@ from services.rag import KnowledgeBase
 from services.pdf_generator import PDFBook, FPDF, clean_text
 from services.characters import CharacterManager
 from services.bible import WorldBible
+from utils.prompt_budget import (
+    fit_briefing_context,
+    fit_outline_context,
+    fit_revision_context,
+    fit_scene_prompt_inputs,
+    fit_story_context,
+    trim_character_context,
+    trim_text,
+)
 
 from agents.agents import BookAgents
 from agents.tasks import BookTasks
@@ -27,6 +36,7 @@ class IllustratedBookFlow(Flow[BookState]):
         self.agents.initialize_tools()
         
         self.tasks = BookTasks()
+        self.prompt_char_budget = 9000
         
         # Apply config to State
         if initial_config:
@@ -79,6 +89,7 @@ class IllustratedBookFlow(Flow[BookState]):
         w_style = cfg.get("writing_style", {})
         self.state.target_word_count = w_style.get("word_count", 700)
         self.state.language = w_style.get("language", "English")
+        self.prompt_char_budget = cfg.get("prompt_char_budget", 9000)
 
     def _setup_paths(self, cfg):
         # Force project to live in its own subdirectory inside 'outputs' to prevent root clutter
@@ -97,6 +108,24 @@ class IllustratedBookFlow(Flow[BookState]):
         self.state.rag_path = os.path.join(self.output_dir, cfg.get("rag_path", "rag_db"))
         self.project_root = project_root
         os.makedirs(self.output_dir, exist_ok=True)
+        self.logs_dir = os.path.join(self.output_dir, "logs")
+        os.makedirs(self.logs_dir, exist_ok=True)
+        self.trace_log_path = os.path.join(self.logs_dir, "run_trace.jsonl")
+
+    def _trace_event(self, event_type: str, **data):
+        """Append a structured trace event for post-mortem debugging."""
+        payload = {
+            "ts": datetime.utcnow().isoformat(timespec="seconds") + "Z",
+            "event": event_type,
+            "title": getattr(self.state, "title", ""),
+            "flow_id": getattr(self.state, "id", ""),
+            **data,
+        }
+        try:
+            with open(self.trace_log_path, "a", encoding="utf-8") as handle:
+                handle.write(json.dumps(payload, ensure_ascii=False) + "\n")
+        except Exception as exc:
+            print(f"⚠️ Failed to write trace event: {exc}")
 
     def _save_run_config(self):
         """Saves the configuration used for this run to the output directory."""
@@ -344,7 +373,9 @@ class IllustratedBookFlow(Flow[BookState]):
         
         crew = Crew(agents=[architect], tasks=[design_task], verbose=True)
         try:
+            self._trace_event("stage_start", stage="character_design")
             res = str(crew.kickoff())
+            self._trace_event("stage_ok", stage="character_design", response_chars=len(res))
             res = res.replace("```json", "").replace("```", "").strip()
             if "{" in res:
                 res = res[res.find("{"):res.rfind("}")+1]
@@ -375,8 +406,15 @@ class IllustratedBookFlow(Flow[BookState]):
                 if isinstance(personality, dict):
                     personality = ", ".join([f"{k}: {v}" for k, v in personality.items()])
 
+                gender = str(char.get("gender", char.get("sex", ""))).strip().lower()
+                if gender not in {"male", "female"}:
+                    bio_for_inference = f"{appearance}\n{personality}\n{char['backstory']}".lower()
+                    male_score = bio_for_inference.count(" he ") + bio_for_inference.count(" him ") + bio_for_inference.count(" his ") + bio_for_inference.count(" man ") + bio_for_inference.count(" male ")
+                    female_score = bio_for_inference.count(" she ") + bio_for_inference.count(" her ") + bio_for_inference.count(" hers ") + bio_for_inference.count(" woman ") + bio_for_inference.count(" female ")
+                    gender = "male" if male_score > female_score else "female" if female_score > male_score else "unspecified"
+
                 # Save Background
-                full_bio = f"Role: {char['role']}\nAppearance: {appearance}\nPersonality: {personality}\nBackstory: {char['backstory']}"
+                full_bio = f"Role: {char['role']}\nGender: {gender}\nAppearance: {appearance}\nPersonality: {personality}\nBackstory: {char['backstory']}"
                 with open(os.path.join(c_folder, "background.md"), "w", encoding="utf-8") as f:
                     f.write(full_bio)
                     
@@ -386,7 +424,9 @@ class IllustratedBookFlow(Flow[BookState]):
                 # Generate Portrait
                 print(f"    > Generating portrait prompt...")
                 portrait_task = self.tasks.character_portrait_task(illustrator, char)
+                self._trace_event("stage_start", stage="portrait_prompt", character=name)
                 prompt_output = str(Crew(agents=[illustrator], tasks=[portrait_task]).kickoff())
+                self._trace_event("stage_ok", stage="portrait_prompt", character=name, response_chars=len(prompt_output))
                 
                 # Parse positive and negative prompts
                 positive_prompt = prompt_output
@@ -450,6 +490,7 @@ class IllustratedBookFlow(Flow[BookState]):
             self.save_state()
             
         except Exception as e:
+            self._trace_event("stage_error", stage="character_design", error=str(e))
             print(f"❌ Character Generation Error: {e}")
             self.state.character_context = f"Characters for a {self.state.genre} story with theme {self.state.theme}."
 
@@ -468,21 +509,25 @@ class IllustratedBookFlow(Flow[BookState]):
         
         print(f"🎬 Creating Master Plot for '{self.state.title}'...")
         architect = self.agents.story_architect()
+        char_context = trim_character_context(self.state.character_context, 2400)
         
         task = self.tasks.master_plot_task(
             architect,
             title=self.state.title,
             genre=self.state.genre,
             theme=self.state.theme,
-            character_context=self.state.character_context
+            character_context=char_context
         )
         
         crew = Crew(agents=[architect], tasks=[task], verbose=True)
         try:
+            self._trace_event("stage_start", stage="master_plot")
             master_plot_text = str(crew.kickoff())
+            self._trace_event("stage_ok", stage="master_plot", response_chars=len(master_plot_text))
             self.state.master_plot = master_plot_text
             self.save_state()
         except Exception as e:
+            self._trace_event("stage_error", stage="master_plot", error=str(e))
             print(f"❌ Master Plot Error: {e}")
             self.state.master_plot = f"A {self.state.genre} story set in a world themed around {self.state.theme}."
     
@@ -520,19 +565,33 @@ class IllustratedBookFlow(Flow[BookState]):
                  return
                  
             print(f"✨ CREATION MODE: {self.state.target_chapters} Chapters")
+            fitted = fit_story_context(
+                master_plot=self.state.master_plot,
+                character_context=self.state.character_context,
+                rag_context="",
+                recent_summary="",
+                world_bible_context="",
+                total_char_budget=self.prompt_char_budget,
+            )
+            outline_inputs = fit_outline_context(
+                master_plot=fitted["master_plot"],
+                character_context=fitted["character_context"],
+            )
             task = self.tasks.structure_task(
                 architect, 
                 genre=f"{self.state.genre} - Theme: {self.state.theme}", 
                 title=self.state.title, 
                 chapter_count=self.state.target_chapters,
-                master_plot=self.state.master_plot,
-                character_context=self.state.character_context
+                master_plot=outline_inputs["master_plot"],
+                character_context=outline_inputs["character_context"],
             )
         
         print(f"Creating/Updating Outline for '{self.state.title}'...")
         crew = Crew(agents=[architect], tasks=[task], verbose=True)
         try:
+            self._trace_event("stage_start", stage="outline")
             res_raw = str(crew.kickoff())
+            self._trace_event("stage_ok", stage="outline", response_chars=len(res_raw))
             res_raw = res_raw.replace("```json", "").replace("```", "").strip()
             if "{" in res_raw:
                 res_raw = res_raw[res_raw.find("{"):res_raw.rfind("}")+1]
@@ -541,6 +600,7 @@ class IllustratedBookFlow(Flow[BookState]):
             self.state.outline = res.get("outline", [])
             self.save_state()
         except Exception as e:
+            self._trace_event("stage_error", stage="outline", error=str(e))
             print(f"❌ Outline Generation Error: {e}")
             if not self.state.outline:
                 self.state.outline = [{"chapter": 1, "title": "Start", "summary": "Begin.", "status": "pending"}]
@@ -596,16 +656,39 @@ class IllustratedBookFlow(Flow[BookState]):
             
             prev_ch_idx = ch['chapter'] - 1
             recent_summary = self.state.recursive_summaries.get(prev_ch_idx, "Start of story.")
+            fitted = fit_story_context(
+                master_plot=self.state.master_plot,
+                character_context=self.state.character_context,
+                rag_context=ctx,
+                recent_summary=recent_summary,
+                world_bible_context=bible_ctx,
+                total_char_budget=self.prompt_char_budget,
+            )
+            briefing_inputs = fit_briefing_context(
+                chapter_summary=ch["summary"],
+                rag_context=ctx,
+                recent_summary=fitted["recent_summary"],
+                arc_summary=fitted["master_plot"],
+                world_bible_context=fitted["world_bible_context"],
+            )
             # For Arc, we could synthesize summaries of 1-(N-1). For now using Master Plot as proxy.
             
             # Breakdown
-            breakdown_task = self.tasks.breakdown_chapter_task(architect, ch, ctx, scene_count=self.state.scenes_per_chapter)
+            breakdown_task = self.tasks.breakdown_chapter_task(
+                architect,
+                ch,
+                trim_text(ctx, 1400, keep_end=True, preserve_prefix_chars=48),
+                scene_count=self.state.scenes_per_chapter,
+            )
             try:
+                self._trace_event("stage_start", stage="chapter_breakdown", chapter=ch["chapter"], title=ch["title"])
                 raw_json = str(Crew(agents=[architect], tasks=[breakdown_task]).kickoff())
+                self._trace_event("stage_ok", stage="chapter_breakdown", chapter=ch["chapter"], title=ch["title"], response_chars=len(raw_json))
                 raw_json = raw_json.replace("```json", "").replace("```", "").strip()
                 if "{" in raw_json: raw_json = raw_json[raw_json.find("{"):raw_json.rfind("}")+1]
                 scenes_data = json.loads(raw_json).get("scenes", [])
             except Exception as e:
+                self._trace_event("stage_error", stage="chapter_breakdown", chapter=ch["chapter"], title=ch["title"], error=str(e))
                 print(f"  ! Breakdown failed ({e})")
                 scenes_data = [{"number": 1, "name": "Event", "description": ch['summary'], "setting": "Unknown", "emotional_beat": "Neutral"}]
 
@@ -627,28 +710,81 @@ class IllustratedBookFlow(Flow[BookState]):
                 
                 # Briefing with ENRICHED CONTEXT
                 brief_task = self.tasks.briefing_task(
-                    mgr, ch, ctx, 
-                    recursive_summaries={2: recent_summary, 1: self.state.master_plot},
-                    world_bible_context=bible_ctx
+                    mgr,
+                    {**ch, "summary": briefing_inputs["chapter_summary"]},
+                    briefing_inputs["rag_context"],
+                    recursive_summaries={
+                        2: briefing_inputs["recent_summary"],
+                        1: briefing_inputs["arc_summary"],
+                    },
+                    world_bible_context=briefing_inputs["world_bible_context"],
                 )
+                self._trace_event("stage_start", stage="chapter_briefing", chapter=ch["chapter"], scene=scene["number"], title=ch["title"])
                 brief = str(Crew(agents=[mgr], tasks=[brief_task]).kickoff())
+                self._trace_event("stage_ok", stage="chapter_briefing", chapter=ch["chapter"], scene=scene["number"], title=ch["title"], response_chars=len(brief))
                 
                 # Write
+                scene_inputs = fit_scene_prompt_inputs(
+                    scene_number=scene["number"],
+                    scene_name=scene["name"],
+                    action_text=scene["description"],
+                    setting_text=scene["setting"],
+                    emotion_text=scene["emotional_beat"],
+                    character_context=fitted["character_context"],
+                    briefing_context=brief,
+                    previous_scene_text=chapter_full_text,
+                    total_char_budget=6500,
+                )
                 write_task = self.tasks.write_scene_task(
-                    writer, scene, brief, chapter_full_text,
-                    character_context=self.state.character_context,
+                    writer,
+                    {
+                        **scene,
+                        "description": scene_inputs["action_text"],
+                        "setting": scene_inputs["setting_text"],
+                        "emotional_beat": scene_inputs["emotion_text"],
+                    },
+                    scene_inputs["briefing_context"],
+                    scene_inputs["previous_scene_text"],
+                    character_context=scene_inputs["character_context"],
                     word_count=self.state.target_word_count
                 )
+                self._trace_event("stage_start", stage="scene_write", chapter=ch["chapter"], scene=scene["number"], title=ch["title"])
                 draft = str(Crew(agents=[writer], tasks=[write_task]).kickoff())
+                self._trace_event("stage_ok", stage="scene_write", chapter=ch["chapter"], scene=scene["number"], title=ch["title"], response_chars=len(draft))
                 
                 # Critique with BIBLE
-                critique_task = self.tasks.critique_scene_task(editor, draft, world_bible_context=bible_ctx)
+                revision_ctx = fit_revision_context(
+                    draft_text=draft,
+                    critique_feedback="",
+                    world_bible_context=bible_ctx,
+                    total_char_budget=7000,
+                )
+                critique_task = self.tasks.critique_scene_task(
+                    editor,
+                    revision_ctx["draft_text"],
+                    world_bible_context=revision_ctx["world_bible_context"],
+                )
+                self._trace_event("stage_start", stage="scene_critique", chapter=ch["chapter"], scene=scene["number"], title=ch["title"])
                 feedback = str(Crew(agents=[editor], tasks=[critique_task]).kickoff())
+                self._trace_event("stage_ok", stage="scene_critique", chapter=ch["chapter"], scene=scene["number"], title=ch["title"], response_chars=len(feedback))
                 
                 # Revise
                 if "APPROVED" not in feedback:
-                    revise_task = self.tasks.revise_scene_task(writer, draft, feedback, word_count=self.state.target_word_count)
+                    revision_ctx = fit_revision_context(
+                        draft_text=draft,
+                        critique_feedback=feedback,
+                        world_bible_context="",
+                        total_char_budget=7000,
+                    )
+                    revise_task = self.tasks.revise_scene_task(
+                        writer,
+                        revision_ctx["draft_text"],
+                        revision_ctx["critique_feedback"],
+                        word_count=self.state.target_word_count,
+                    )
+                    self._trace_event("stage_start", stage="scene_revise", chapter=ch["chapter"], scene=scene["number"], title=ch["title"])
                     final_text = str(Crew(agents=[writer], tasks=[revise_task]).kickoff())
+                    self._trace_event("stage_ok", stage="scene_revise", chapter=ch["chapter"], scene=scene["number"], title=ch["title"], response_chars=len(final_text))
                     final_text = clean_text(final_text)
                 else:
                     final_text = clean_text(draft)
@@ -668,9 +804,11 @@ class IllustratedBookFlow(Flow[BookState]):
                         print(f"    🎨 Generating illustration...")
                         prompt_task = self.tasks.illustration_task(
                             illustrator, ch, final_text, target_path,
-                            character_context=self.state.character_context
+                            character_context=trim_character_context(self.state.character_context, 2200)
                         )
+                        self._trace_event("stage_start", stage="illustration_prompt", chapter=ch["chapter"], scene=scene["number"], title=ch["title"])
                         prompt_output = str(Crew(agents=[illustrator], tasks=[prompt_task]).kickoff()).strip()
+                        self._trace_event("stage_ok", stage="illustration_prompt", chapter=ch["chapter"], scene=scene["number"], title=ch["title"], response_chars=len(prompt_output))
                         
                         # Parse positive and negative prompts
                         positive_prompt = prompt_output
@@ -692,13 +830,18 @@ class IllustratedBookFlow(Flow[BookState]):
                                     char_bio_start = context_lower.find(f"## {char_name.lower()}")
                                     char_bio = context_lower[char_bio_start:char_bio_start+1000] if char_bio_start != -1 else ""
                                     
-                                    m_score = char_bio.count(" he ") + char_bio.count(" him ") + char_bio.count(" man ") + char_bio.count(" male ")
-                                    f_score = char_bio.count(" she ") + char_bio.count(" her ") + char_bio.count(" woman ") + char_bio.count(" female ")
-                                    
-                                    if m_score > f_score:
+                                    if "gender: male" in char_bio:
                                         scene_gender_tags.append("(1boy:1.4), (male:1.3)")
-                                    elif f_score > m_score:
+                                    elif "gender: female" in char_bio:
                                         scene_gender_tags.append("(1girl:1.4), (female:1.3)")
+                                    else:
+                                        m_score = char_bio.count(" he ") + char_bio.count(" him ") + char_bio.count(" man ") + char_bio.count(" male ")
+                                        f_score = char_bio.count(" she ") + char_bio.count(" her ") + char_bio.count(" woman ") + char_bio.count(" female ")
+                                        
+                                        if m_score > f_score:
+                                            scene_gender_tags.append("(1boy:1.4), (male:1.3)")
+                                        elif f_score > m_score:
+                                            scene_gender_tags.append("(1girl:1.4), (female:1.3)")
                         
                         gender_inject = ", ".join(set(scene_gender_tags)) if scene_gender_tags else "(solo:1.4), (1person:1.3)"
                         if len(scene_gender_tags) > 1:

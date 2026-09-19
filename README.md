@@ -4,6 +4,15 @@ A collection of advanced CrewAI examples and experiments, featuring local/remote
 
 ## 📂 Projects
 
+### 🖼️ [ComfyUI Image Generation](examples/04_comfyui_image_gen/README.md)
+Minimal, self-contained CrewAI example that drives a ComfyUI MCP server end-to-end:
+- **MCP server**: Reuses the same DGX Spark ComfyUI tunnel (`comfyui-dgspark`) used by the illustrated book writer.
+- **Tool surface**: `generate_image`, `modify_image` (img2img), `upscale_image`, `remove_background`, `list_workflows` — all adapted from the canonical `~/.openclaw/.../comfyui-image-gen` skill on DGX.
+- **Pipeline modes**: `simple` (one-shot generation) or `full` (generate → modify → upscale, with optional background removal).
+- **Bundled mock**: Ships a `comfyui-mock` MCP fallback so the example is runnable on any machine, no GPU required.
+- **LLM**: OpenRouter by default (swap to Ollama, OpenAI, or llama.cpp via `config/preferences.yaml`).
+- **Output**: One PNG per pipeline step in `outputs/` (`generated.png`, `modified.png`, `upscaled.png`, optionally `no_bg.png`).
+
 ### 📖 [Illustrated Book Writer](examples/05_illustrated_book_writer/README.md)
 A fully autonomous agent crew that writes, edits, and illustrates complete novels using:
 - **CrewAI**: For agent orchestration (Writer, Editor, Illustrator, Architect).
@@ -36,6 +45,21 @@ A multi-modal crew for creating comprehensive marketing campaigns:
 - **LLM Strategy**: Develops USPs, taglines, and campaign concepts.
 - **ComfyUI MCP**: Generates visual concept art for the campaign.
 
+### 🏢 [Autonomous Software Agency](examples/10_autonomous_software_agency/README.md)
+A complete, autonomous software agency built with **CrewAI Flows**:
+- **Flow lifecycle**: Plan → Code → Test → Fix → Document.
+- **Self-healing**: failed tests route back to the Developer agent (up to 3 retries).
+- **Project isolation**: all work happens in `outputs/workspace/`.
+- **Structured outputs**: Pydantic schemas for Plans and Test Results.
+- **SQLite MCP** (optional): logs project metadata to a local "corporate memory".
+
+### 🌐 [Ultimate Autonomous Agency](examples/11_ultimate_autonomous_agency/README.md)
+The most complete CrewAI demonstration: Flows + hierarchical processes + custom MCP servers + self-healing loops:
+- **Elite architecture**: `Process.hierarchical` with a Manager agent.
+- **Persistent Memory MCP**: custom local SQLite MCP server for cross-step project context.
+- **Self-healing**: robust Code → Test → Fix loop until tests pass.
+- **Structured outputs**: strict Pydantic typing between agents.
+
 ## 🛠️ Comprehensive Setup Guide
 
 This project uses a **Dual-Layer Architecture**:
@@ -43,7 +67,7 @@ This project uses a **Dual-Layer Architecture**:
 2.  **MCP Venvs**: Each MCP server (e.g., ComfyUI) runs in its own isolated environment to avoid dependency conflicts.
 
 ### 1. Root Environment Setup
-(Run in `F:\REPOSITORIES\Crewai` root)
+(Run from the repository root)
 
 ```powershell
 # Create Root Virtual Environment

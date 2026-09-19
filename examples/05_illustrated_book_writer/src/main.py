@@ -7,9 +7,106 @@ from dotenv import load_dotenv
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from config.config import ConfigLoader
-from core.flow import IllustratedBookFlow
-from services.llama_controller import LlamaController
-from services.ollama_controller import OllamaController
+from utils.crewai_runtime import configure_crewai_runtime
+
+
+def extract_writing_style(config):
+    """Prefer story.content writing settings while keeping legacy fallback support."""
+    story_content = config.get("story", {}).get("content", {})
+    legacy_writing = config.get("writing", {})
+    if not legacy_writing:
+        return story_content
+    merged = dict(legacy_writing)
+    for key, value in story_content.items():
+        merged[key] = value
+    return merged
+
+
+def apply_selected_llm_profile(
+    config,
+    infra,
+    llama_controller_cls=None,
+    ollama_controller_cls=None,
+):
+    """Apply the selected LLM profile and manage only local providers."""
+    llm_sel = infra.get("llm_selected", "openrouter")
+    llm_profile = infra.get("llm_profiles", {}).get(llm_sel)
+
+    if not llm_profile:
+        return None
+
+    print(f"🔧 Using LLM Provider: {llm_sel.upper()} ({llm_profile['model']})")
+
+    if "agents" not in config:
+        config["agents"] = {}
+    if "llm" not in config["agents"]:
+        config["agents"]["llm"] = {}
+
+    config["agents"]["llm"]["model"] = llm_profile["model"]
+    config["agents"]["llm"]["base_url"] = llm_profile["base_url"]
+    config["agents"]["llm"]["temperature"] = llm_profile.get("temperature", 0.7)
+
+    if "api_key" in llm_profile:
+        os.environ["OPENAI_API_KEY"] = llm_profile["api_key"]
+
+    provider_kind = llm_profile.get("provider_kind", "")
+    is_llama_local = provider_kind == "llama_cpp_local" or (
+        not provider_kind and "llama_cp" in llm_sel.lower()
+    )
+    is_ollama_local = provider_kind == "ollama_local" or (
+        not provider_kind and "ollama" in llm_sel.lower()
+    )
+
+    if is_llama_local:
+        print("⚙️  Initializing LlamaCP Manager...")
+        if ollama_controller_cls is None:
+            from services.ollama_controller import OllamaController
+
+            ollama_controller_cls = OllamaController
+        if llama_controller_cls is None:
+            from services.llama_controller import LlamaController
+
+            llama_controller_cls = LlamaController
+
+        try:
+            ollama_cfg = infra.get("llm_profiles", {}).get("ollama", {})
+            if ollama_cfg and ollama_controller_cls is not None:
+                temp_ollama = ollama_controller_cls(ollama_cfg)
+                kill_existing_process = getattr(temp_ollama, "kill_existing_process", None)
+                if callable(kill_existing_process):
+                    kill_existing_process()
+        except Exception:
+            pass
+
+        controller = llama_controller_cls(llm_profile)
+        controller.ensure_server_running()
+    elif is_ollama_local:
+        print("⚙️  Initializing Ollama Manager...")
+        if llama_controller_cls is None:
+            from services.llama_controller import LlamaController
+
+            llama_controller_cls = LlamaController
+        if ollama_controller_cls is None:
+            from services.ollama_controller import OllamaController
+
+            ollama_controller_cls = OllamaController
+
+        try:
+            lcp_cfg = infra.get("llm_profiles", {}).get("llama_cp_local", {})
+            if lcp_cfg and llama_controller_cls is not None:
+                temp_llama = llama_controller_cls(lcp_cfg)
+                kill_existing_process = getattr(temp_llama, "kill_existing_process", None)
+                if callable(kill_existing_process):
+                    kill_existing_process()
+        except Exception:
+            pass
+
+        controller = ollama_controller_cls(llm_profile)
+        controller.start_server()
+        controller.load_model()
+
+    return llm_profile
+
 
 def kickoff():
     print("==========================================")
@@ -19,9 +116,13 @@ def kickoff():
     # Load Environment
     # main.py is in src/, so we go up 4 levels to get to repo root (src -> 05 -> examples -> Crewai)
     repo_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+    example_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     dotenv_path = os.path.join(repo_root, ".env")
     load_dotenv(dotenv_path=dotenv_path, override=True)
-    os.environ["CREWAI_TRACING_ENABLED"] = "true"
+    runtime_info = configure_crewai_runtime(os.path.join(example_root, "outputs", "_crewai_runtime"))
+    print(f"🗂️  CrewAI runtime redirected to: {runtime_info['runtime_root']}")
+
+    from core.flow import IllustratedBookFlow
 
     try:
         # Load Config
@@ -31,61 +132,7 @@ def kickoff():
         infra = config.get("infrastructure", {})
         
         # 1. LLM Setup
-        llm_sel = infra.get("llm_selected", "openrouter")
-        llm_profile = infra.get("llm_profiles", {}).get(llm_sel)
-        
-        if llm_profile:
-            print(f"🔧 Using LLM Provider: {llm_sel.upper()} ({llm_profile['model']})")
-            
-            # Ensure agents config exists
-            if "agents" not in config: config["agents"] = {}
-            if "llm" not in config["agents"]: config["agents"]["llm"] = {}
-            
-            # Apply Profile
-            config["agents"]["llm"]["model"] = llm_profile["model"]
-            config["agents"]["llm"]["base_url"] = llm_profile["base_url"]
-            config["agents"]["llm"]["temperature"] = llm_profile.get("temperature", 0.7)
-            
-            # Handle API Key
-            if "api_key" in llm_profile:
-                os.environ["OPENAI_API_KEY"] = llm_profile["api_key"]
-                
-            # [INTEGRATION] Auto-Manage Servers (Mutual Exclusion)
-            if "llama_cp" in llm_sel.lower():
-                # If using LlamaCP, ensure Ollama is stopped
-                print(f"⚙️  Initializing LlamaCP Manager...")
-                # Kill Ollama first to free port/resources if needed (though ports differ, VRAM might not)
-                # But we don't have Ollama config here easily unless we load it.
-                # Let's assume standard port 11434 check.
-                # Or better, instantiate OllamaController just to kill.
-                try:
-                    ollama_cfg = infra.get("llm_profiles", {}).get("ollama", {})
-                    if ollama_cfg:
-                        temp_ollama = OllamaController(ollama_cfg)
-                        temp_ollama.kill_existing_process()
-                except:
-                    pass
-
-                controller = LlamaController(llm_profile)
-                controller.ensure_server_running()
-
-            elif "ollama" in llm_sel.lower():
-                # If using Ollama, ensure LlamaCP is stopped
-                print(f"⚙️  Initializing Ollama Manager...")
-                # Kill LlamaCP first
-                try:
-                    # We need a LlamaController to kill, but we need config.
-                    # Try to find a llama_cp profile to use for kill config
-                    lcp_cfg = infra.get("llm_profiles", {}).get("llama_cp_local", {})
-                    if lcp_cfg:
-                        temp_llama = LlamaController(lcp_cfg)
-                        temp_llama.kill_existing_process()
-                except:
-                    pass
-
-                controller = OllamaController(llm_profile)
-                controller.start_server()
-                controller.load_model()
+        apply_selected_llm_profile(config, infra)
 
 
         # 2. Image Gen Setup
@@ -119,6 +166,7 @@ def kickoff():
         story_cfg = config.get("story", {})
         styles_cfg = config.get("styles", {})
         char_cfg = config.get("characters", {})
+        writing_style_cfg = extract_writing_style(config)
 
         app_config = {
             "project_root": project_cfg.get("root"),
@@ -143,7 +191,7 @@ def kickoff():
             # Styles
             "pdf_style": styles_cfg.get("pdf", {}),
             "workflow_name": styles_cfg.get("images", {}).get("workflow", "image_perfectDeliberate_text_to_image_API.json"),
-            "writing_style": config.get("writing", {}),
+            "writing_style": writing_style_cfg,
             
             # Agents (Pass raw agents config for BookAgents)
             "agents": config.get("agents", {})

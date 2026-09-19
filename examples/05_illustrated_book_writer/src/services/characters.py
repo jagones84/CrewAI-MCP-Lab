@@ -38,8 +38,16 @@ class CharacterManager:
             return background_text[:300]
 
     def _detect_gender(self, text: str) -> str:
-        """Detect gender tags based on pronouns and keywords."""
+        """Detect gender tags, preferring an explicit Gender field when present."""
         text = text.lower()
+        for line in text.splitlines():
+            if line.startswith("gender:"):
+                explicit = line.split(":", 1)[1].strip()
+                if explicit.startswith("male"):
+                    return "(1boy:1.6), (male:1.5), (masculine features:1.2)"
+                if explicit.startswith("female"):
+                    return "(1girl:1.6), (female:1.5), (feminine features:1.2)"
+
         male_score = text.count(" he ") + text.count(" him ") + text.count(" his ") + text.count(" man ") + text.count(" male ") + text.count(" boy ")
         female_score = text.count(" she ") + text.count(" her ") + text.count(" hers ") + text.count(" woman ") + text.count(" female ") + text.count(" girl ")
         
